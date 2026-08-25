@@ -1,4 +1,5 @@
 {
   "itemGroup.tntgun.title": "TNT Gun",
-  "item.tntgun.rpg" : "RPG"
+  "item.tntgun.rpg": "RPG",
+  "item.tntgun.rpg_projectile": "Rocket"
 }

@@ -1,4 +1,4 @@
-package net.beihaime.tntgun.CreativeTab;
+package net.beihaime.tntgun.creativeTab;
 
 import net.beihaime.tntgun.registry.ModItem;
 import net.minecraft.core.registries.Registries;
@@ -14,11 +14,16 @@ public class ModCreativeTabs {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, "tntgun");
 
 
-    public static final RegistryObject<CreativeModeTab> TNT_GUN_TAB = CREATIVE_MODE_TABS.register("tnt_gun",
-                    () -> CreativeModeTab.builder().icon(() -> new ItemStack(Items.GUNPOWDER))
+    public static final RegistryObject<CreativeModeTab> TNT_GUN_TAB =
+            CREATIVE_MODE_TABS.register(
+                    "tnt_gun",
+                    () -> CreativeModeTab.builder()
+                            .icon(() -> new ItemStack(ModItem.RPG_PROJECTILE.get()))
                             .title(Component.translatable("itemGroup.tntgun.title"))
-                            .displayItems((pParameters, pOutput) ->
-                                    pOutput.accept(ModItem.RPG.get()))
-                            .build());
-    }
-
+                            .displayItems((pParameters, pOutput) -> {
+                                pOutput.accept(ModItem.RPG.get());
+                                pOutput.accept(ModItem.RPG_PROJECTILE.get());
+                            })
+                            .build()
+            );
+}

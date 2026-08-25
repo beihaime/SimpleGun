@@ -1,13 +1,10 @@
 package net.beihaime.tntgun.entity;
 
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import org.slf4j.Logger;
 
 public class ProjectileTnt extends PrimedTnt {
     public ProjectileTnt(
@@ -19,7 +16,15 @@ public class ProjectileTnt extends PrimedTnt {
     ) {
         super(level, x, y, z, owner);
         this.setFuse(Integer.MAX_VALUE);
+
     }
+    public ProjectileTnt(
+            EntityType<ProjectileTnt> entityType,
+            Level level
+    ) {
+        super(entityType, level);
+    }
+
     @Override
     public void tick() {
         if (!this.isNoGravity()) {

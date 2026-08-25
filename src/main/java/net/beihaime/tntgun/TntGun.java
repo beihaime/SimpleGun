@@ -1,8 +1,9 @@
 package net.beihaime.tntgun;
 
 import com.mojang.logging.LogUtils;
-import net.beihaime.tntgun.CreativeTab.ModCreativeTabs;
+import net.beihaime.tntgun.creativeTab.ModCreativeTabs;
 import net.beihaime.tntgun.events.PlayerEvents;
+import net.beihaime.tntgun.registry.ModEntities;
 import net.beihaime.tntgun.registry.ModItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -38,6 +39,7 @@ public class TntGun {
         MinecraftForge.EVENT_BUS.register(new PlayerEvents());
 
         ModItem.ITEMS.register(modEventBus);
+        ModEntities.ENTITIES.register(modEventBus);
 
         ModNetwork.register();
 
