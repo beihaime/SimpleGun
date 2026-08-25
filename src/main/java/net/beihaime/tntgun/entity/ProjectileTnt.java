@@ -1,5 +1,6 @@
 package net.beihaime.tntgun.entity;
 
+import net.beihaime.tntgun.registry.ModEntities;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,25 +13,24 @@ import net.minecraft.world.phys.Vec3;
 
 public class ProjectileTnt extends PrimedTnt {
     private int graceTicks = 3;
-    public ProjectileTnt(
-            Level level,
-            double x,
-            double y,
-            double z,
-            float explodeRadius,
-            LivingEntity owner
-    ) {
-        super(level, x, y, z, owner);
+    private LivingEntity shooter;
+    public ProjectileTnt(EntityType<? extends PrimedTnt> type, Level level) {
+        super(type, level);
         this.setFuse(Integer.MAX_VALUE);
-
     }
 
-    public ProjectileTnt(
-            EntityType<ProjectileTnt> entityType,
-            Level level
-    ) {
-        super(entityType, level);
+    public ProjectileTnt(Level level, double x, double y, double z,
+                         float explodeRadius, LivingEntity owner) {
+        super(ModEntities.PROJECTILE_TNT.get(), level); // 必须用模组 EntityType
+        this.setPos(x, y, z);
+        this.shooter = owner;
+        this.setFuse(Integer.MAX_VALUE);
     }
+    @Override
+    public LivingEntity getOwner() {
+        return shooter != null ? shooter : super.getOwner();
+    }
+
     @Override
     public void explode(){
         this.level().explode(
@@ -96,6 +96,4 @@ public class ProjectileTnt extends PrimedTnt {
         }
     }
 
-    public void setOwner(Player player) {
-    }
 }

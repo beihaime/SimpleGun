@@ -7,7 +7,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.beihaime.tntgun.network.ModNetwork;
-import org.spongepowered.asm.mixin.MixinEnvironment;
 
 public class FireEvent {
     @SubscribeEvent
@@ -24,12 +23,12 @@ public class FireEvent {
     @SubscribeEvent
     public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
         Player player = event.getEntity();
-        if (event.getSide().isClient()) {
-            if (player.getMainHandItem().getItem() instanceof GunItem launcher) {
-                event.setCanceled(true);
-                ModNetwork.CHANNEL.sendToServer(new FirePacket());
-            }
+        if (!(player.getMainHandItem().getItem() instanceof GunItem)) {
+            return;
         }
-
+        event.setCanceled(true);
+        if (event.getSide().isClient()) {
+            ModNetwork.CHANNEL.sendToServer(new FirePacket());
+        }
     }
 }

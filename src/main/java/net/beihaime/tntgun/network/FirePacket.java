@@ -6,6 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
@@ -42,7 +43,16 @@ public class FirePacket {
                 }
                 if (!StatusChecker.hasRocket(player)) {
                     player.sendSystemMessage(Component.translatable("no_ammo_warning"));
-                    player.playSound(SoundEvents.VILLAGER_NO, 0.5F, 1.0F);
+                    player.level().playSound(
+                            null,
+                            player.getX(),
+                            player.getY(),
+                            player.getZ(),
+                            SoundEvents.VILLAGER_NO,
+                            SoundSource.PLAYERS,
+                            0.5F,
+                            1.0F
+                    );
                     return;
                 }
 
@@ -52,7 +62,16 @@ public class FirePacket {
                         p.broadcastBreakEvent(net.minecraft.world.InteractionHand.MAIN_HAND)
                 );
                 Fire.fireTnt(player, launcher);
-                player.playSound(SoundEvents.GENERIC_EXPLODE, 0.5F, 1.0F);
+                player.level().playSound(
+                        null,                       // null = 谁都能听见，包括自己
+                        player.getX(),
+                        player.getY(),
+                        player.getZ(),
+                        SoundEvents.GENERIC_EXPLODE,
+                        SoundSource.PLAYERS,
+                        0.5F,
+                        1.0F
+                );
                 player.getCooldowns().addCooldown(
                         launcher,
                         (int) launcher.getCooldown()
