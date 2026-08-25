@@ -1,6 +1,9 @@
 package net.beihaime.tntgun;
 
 import com.mojang.logging.LogUtils;
+import net.beihaime.tntgun.CreativeTab.ModCreativeTabs;
+import net.beihaime.tntgun.events.PlayerEvents;
+import net.beihaime.tntgun.registry.ModItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -31,6 +34,7 @@ public class TntGun {
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new PlayerEvents());
 
         ModItem.ITEMS.register(modEventBus);
 
