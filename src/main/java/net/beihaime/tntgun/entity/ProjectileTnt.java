@@ -10,6 +10,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class ProjectileTnt extends PrimedTnt {
+    private int graceTicks = 3;
     public ProjectileTnt(
             Level level,
             double x,
@@ -43,6 +44,9 @@ public class ProjectileTnt extends PrimedTnt {
 
     @Override
     public void tick() {
+        if (graceTicks > 0) {
+            graceTicks--;
+        }
 
         if (!this.isNoGravity()) {
             this.setDeltaMovement(
@@ -65,8 +69,9 @@ public class ProjectileTnt extends PrimedTnt {
         );
 
         if (!level().isClientSide) {
-
-
+            if (graceTicks > 0) {
+                return;
+            }
             AABB collisionBox = new AABB(
                     oldPosition,
                     newPosition

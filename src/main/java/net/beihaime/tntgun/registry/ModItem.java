@@ -14,9 +14,8 @@ public class ModItem {
             "rpg",
             () -> new GunItem(new Item.Properties()
                     .stacksTo(1),
-
                     4,
-                    0,
+                    4,
                     4
             )
     );

@@ -12,6 +12,7 @@ public class Fire {
     public static void fireTnt(Player player, GunItem launcher) {
 
         Vec3 look = player.getLookAngle();
+        Vec3 playerVelocity = player.getDeltaMovement();
         Level level = player.level();
 
         ProjectileTnt tnt = new ProjectileTnt(
@@ -26,9 +27,9 @@ public class Fire {
         );
 
         tnt.setDeltaMovement(
-                look.x * launcher.getSpeed(),
-                look.y * launcher.getSpeed(),
-                look.z * launcher.getSpeed()
+                look.x * launcher.getSpeed() + player.getDeltaMovement().x,
+                look.y * launcher.getSpeed() + player.getDeltaMovement().y,
+                look.z * launcher.getSpeed() + player.getDeltaMovement().z
         );
 
         level.addFreshEntity(tnt);
