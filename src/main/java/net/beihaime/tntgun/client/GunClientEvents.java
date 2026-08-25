@@ -9,25 +9,30 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class GunClientEvents {
+
+    private static double originalSensitivity;
+    private static boolean aiming = false;
     private static boolean wasAttackDown = false;
 
     @SubscribeEvent
     public static void onFovModifier(ViewportEvent.ComputeFov event) {
 
-        Minecraft minecraft = Minecraft.getInstance();
+        Minecraft mc = Minecraft.getInstance();
 
-        if (minecraft.player == null) {
+        if (mc.player == null) {
             return;
         }
 
-        if (minecraft.player.isUsingItem()
-                && minecraft.player.getUseItem().getItem() instanceof GunItem) {
+        if (mc.player.isUsingItem()
+                && mc.player.getUseItem().getItem() instanceof GunItem) {
 
             event.setFOV(event.getFOV() * 0.25);
         }
     }
+
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
+
         if (event.phase != TickEvent.Phase.END) {
             return;
         }
@@ -37,22 +42,49 @@ public class GunClientEvents {
         if (mc.player == null) {
             return;
         }
+        boolean isAiming =
+                mc.player.isUsingItem()
+                        && mc.player.getUseItem().getItem() instanceof GunItem;
+        if (isAiming && !aiming) {
 
+            originalSensitivity =
+                    mc.options.sensitivity().get();
+
+            mc.options.sensitivity().set(
+                    originalSensitivity * 0.25
+            );
+
+            aiming = true;
+        }
+        if (!isAiming && aiming) {
+
+            mc.options.sensitivity().set(
+                    originalSensitivity
+            );
+
+            aiming = false;
+        }
         if (!(mc.player.getMainHandItem().getItem() instanceof GunItem gun)) {
+
             wasAttackDown = false;
             return;
         }
+        if (!isAiming) {
 
+            wasAttackDown = false;
+            return;
+        }
         boolean attackDown = mc.options.keyAttack.isDown();
-
 
         if (attackDown && !wasAttackDown) {
 
             if (!mc.player.getCooldowns().isOnCooldown(gun)) {
-                ModNetwork.CHANNEL.sendToServer(new FirePacket());
+
+                ModNetwork.CHANNEL.sendToServer(
+                        new FirePacket()
+                );
             }
         }
-
         wasAttackDown = attackDown;
     }
 }

@@ -15,7 +15,7 @@ public class ModItem {
             () -> new GunItem(new Item.Properties()
                     .stacksTo(1)
                     .durability(30),
-                    9,
+                    5,
                     1
             )
     );

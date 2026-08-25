@@ -23,7 +23,7 @@ public class ProjectileTnt extends PrimedTnt {
         super(ModEntities.PROJECTILE_TNT.get(), level);
         this.setPos(x, y, z);
         this.shooter = owner;
-        this.setFuse(Integer.MAX_VALUE);
+        this.setFuse(200);
     }
     @Override
     public LivingEntity getOwner() {
