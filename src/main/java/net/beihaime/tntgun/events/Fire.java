@@ -8,7 +8,6 @@ import net.minecraft.world.phys.Vec3;
 
 
 public class Fire {
-
     public static void fireTnt(Player player, GunItem launcher) {
 
         Vec3 look = player.getLookAngle();
