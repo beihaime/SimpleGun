@@ -22,15 +22,16 @@ public class Fire {
                 player
         );
 
+        double dist = 1.2;
         tnt.setPos(
-                player.getX() + look.x,
-                player.getEyeY() + look.y,
-                player.getZ() + look.z
+                player.getX() + look.x * dist,
+                player.getEyeY() - 0.1 + look.y * dist,
+                player.getZ() + look.z * dist
         );
 
         tnt.setDeltaMovement(
                 look.x * launcher.getSpeed() + player.getDeltaMovement().x,
-                look.y * launcher.getSpeed() + player.getDeltaMovement().y,
+                look.y * launcher.getSpeed() ,
                 look.z * launcher.getSpeed() + player.getDeltaMovement().z
         );
 

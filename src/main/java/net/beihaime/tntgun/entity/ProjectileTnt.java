@@ -14,40 +14,26 @@ public class ProjectileTnt extends PrimedTnt {
 
     private LivingEntity shooter;
     private final float explodeRadius;
+    private int graceTicks = 4;
 
-    public ProjectileTnt(
-            EntityType<? extends PrimedTnt> type,
-            Level level
-    ) {
+    public ProjectileTnt(EntityType<? extends PrimedTnt> type, Level level) {
         super(type, level);
-
+        this.explodeRadius = 4.0F;
         this.setFuse(200);
-        this.explodeRadius = 7.0F;
     }
 
-    public ProjectileTnt(
-            Level level,
-            double x,
-            double y,
-            double z,
-            float explodeRadius,
-            LivingEntity owner
-    ) {
+    public ProjectileTnt(Level level, double x, double y, double z,
+                         float explodeRadius, LivingEntity owner) {
         super(ModEntities.PROJECTILE_TNT.get(), level);
-
         this.setPos(x, y, z);
-
         this.shooter = owner;
         this.explodeRadius = explodeRadius;
-
         this.setFuse(200);
     }
 
     @Override
     public LivingEntity getOwner() {
-        return shooter != null
-                ? shooter
-                : super.getOwner();
+        return shooter != null ? shooter : super.getOwner();
     }
 
     @Override
@@ -64,105 +50,63 @@ public class ProjectileTnt extends PrimedTnt {
 
     @Override
     public void tick() {
-
-        // =========================
-        // Fuse
-        // =========================
+        if (graceTicks > 0) {
+            graceTicks--;
+            this.noPhysics = true;
+        } else {
+            this.noPhysics = false;
+        }
 
         int fuse = this.getFuse();
-
         if (fuse > 0) {
             this.setFuse(fuse - 1);
         } else {
-            explode();
-            discard();
+            if (!level().isClientSide) {
+                explode();
+                discard();
+            }
             return;
         }
 
-
-        // =========================
-        // Gravity
-        // =========================
-
         if (!this.isNoGravity()) {
-            this.setDeltaMovement(
-                    this.getDeltaMovement()
-                            .add(0.0D, -0.0005D, 0.0D)
-            );
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.0005D, 0.0D));
         }
 
-
-        // =========================
-        // Movement
-        // =========================
-
         Vec3 oldPosition = this.position();
-
-        this.move(
-                MoverType.SELF,
-                this.getDeltaMovement()
-        );
-
+        this.move(MoverType.SELF, this.getDeltaMovement());
         Vec3 newPosition = this.position();
+        this.setDeltaMovement(this.getDeltaMovement().scale(0.98D));
 
-        this.setDeltaMovement(
-                this.getDeltaMovement()
-                        .scale(0.98D)
-        );
-
-
-        // =========================
-        // Server side collision
-        // =========================
+        Vec3 v = this.getDeltaMovement();
+        if (v.lengthSqr() > 0.001) {
+            this.setYRot((float) (Math.atan2(v.x, v.z) * (180.0 / Math.PI)));
+            this.setXRot((float) (Math.atan2(-v.y, Math.sqrt(v.x * v.x + v.z * v.z)) * (180.0 / Math.PI)));
+        }
 
         if (level().isClientSide) {
             return;
         }
 
         LivingEntity owner = this.getOwner();
+        AABB collisionBox = new AABB(oldPosition, newPosition).inflate(0.15D);
 
-
-        // =========================
-        // Entity collision
-        // =========================
-
-        AABB collisionBox = new AABB(
-                oldPosition,
-                newPosition
-        ).inflate(0.15D);
-
-        for (Entity entity : level().getEntities(
-                this,
-                collisionBox,
-                Entity::isAlive
-        )) {
-
-            // Don't hit the shooter
-            if (owner != null &&
-                    (entity == owner ||
-                            entity.isPassengerOfSameVehicle(owner))) {
+        for (Entity entity : level().getEntities(this, collisionBox, Entity::isAlive)) {
+            if (owner != null && (entity == owner || entity.isPassengerOfSameVehicle(owner))) {
                 continue;
             }
-
-            discard();
+            if (entity instanceof LivingEntity living) {
+                living.hurt(this.damageSources().explosion(this, owner), 40.0F);
+            }
             explode();
+            discard();
             return;
         }
 
-
-        // =========================
-        // Block collision
-        // =========================
-
         if (horizontalCollision || verticalCollision) {
-
-            boolean tooCloseToOwner =
-                    owner != null &&
-                            this.distanceToSqr(owner) < 2.5D;
-
+            boolean tooCloseToOwner = owner != null && this.distanceToSqr(owner) < 2.5D;
             if (!tooCloseToOwner) {
-                discard();
                 explode();
+                discard();
             }
         }
     }
