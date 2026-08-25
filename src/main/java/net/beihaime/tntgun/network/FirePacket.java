@@ -4,7 +4,7 @@ import net.beihaime.tntgun.item.LauncherItem;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
-
+import net.beihaime.tntgun.events.Fire;
 import java.util.function.Supplier;
 
 public class FirePacket {
@@ -31,7 +31,10 @@ public class FirePacket {
             }
 
             if (player.getMainHandItem().getItem() instanceof LauncherItem launcher) {
-                launcher.fire(player);
+                Fire.fireTnt(
+                        player,
+                        launcher.getSpeed()
+                        );
             }
         });
 

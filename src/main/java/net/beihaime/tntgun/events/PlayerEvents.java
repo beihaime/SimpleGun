@@ -15,7 +15,7 @@ public class PlayerEvents {
         Player player = event.getEntity();
         String playerName = player.getName().getString();
         if (player.getMainHandItem().getItem() instanceof LauncherItem launcher) {
-            player.sendSystemMessage(Component.literal(playerName + "Fire the RPG"));
+            player.sendSystemMessage(Component.literal(playerName + " Fire the RPG"));
             player.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 1.0F);
 
             FirePacket packet = new FirePacket();

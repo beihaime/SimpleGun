@@ -12,7 +12,7 @@ public class ModItem {
 
     public static final RegistryObject<Item> RPG = ITEMS.register(
             "rpg",
-            () -> new LauncherItem(new Item.Properties())
+            () -> new LauncherItem(new Item.Properties(),3)
             );
 
 }
