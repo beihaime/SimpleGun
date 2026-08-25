@@ -27,9 +27,14 @@ public class TntGun {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
+        LOGGER.info(MOD_ID+" has been initialized");
+
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
+        ModItem.ITEMS.register(modEventBus);
+
+        ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
     }
