@@ -13,8 +13,8 @@ public class ModItem {
     public static final RegistryObject<Item> RPG = ITEMS.register(
             "rpg",
             () -> new GunItem(new Item.Properties()
-                    .stacksTo(1),
-                    4,
+                    .stacksTo(1)
+                    .durability(3),
                     4,
                     4
             )

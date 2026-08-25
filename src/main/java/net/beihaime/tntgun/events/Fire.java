@@ -20,6 +20,7 @@ public class Fire {
                 ModEntities.PROJECTILE_TNT.get(),
                 level
         );
+        tnt.setOwner(player);
 
         tnt.setPos(
                 player.getX() + look.x,

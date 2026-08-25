@@ -7,12 +7,10 @@ import net.minecraft.world.item.Item;
 public class GunItem extends Item {
     private final double speed;
     private final double cooldown;
-    private final double durability;
-    public GunItem(Properties properties, double speed, double cooldown,double durability) {
+    public GunItem(Properties properties, double speed, double cooldown) {
         super(properties);
         this.speed = speed;
         this.cooldown = cooldown * 20;
-        this.durability = durability;
 
     }
     public double getSpeed() {
@@ -23,9 +21,6 @@ public class GunItem extends Item {
         return cooldown;
     }
 
-    public double getDurability() {
-        return durability;
-    }
 
 
 }
