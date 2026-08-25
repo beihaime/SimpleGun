@@ -35,7 +35,7 @@ public class FirePacket {
 
             if (player.getMainHandItem().getItem() instanceof GunItem launcher) {
 
-                if (!StatusChecker.hasRocket(player) && StatusChecker.isOnCoolDown(player)) {
+                if (!StatusChecker.hasRocket(player) || StatusChecker.isOnCoolDown(player)) {
                     player.playSound(SoundEvents.VILLAGER_NO, 0.5F, 1.0F);
                     return;
                 }

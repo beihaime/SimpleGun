@@ -7,6 +7,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.beihaime.tntgun.registry.ModEntities;
 
+import static java.nio.file.Files.setOwner;
+
 public class Fire {
 
     public static void fireTnt(Player player, GunItem launcher) {
@@ -14,7 +16,6 @@ public class Fire {
         Vec3 look = player.getLookAngle();
         Vec3 playerVelocity = player.getDeltaMovement();
         Level level = player.level();
-
         ProjectileTnt tnt = new ProjectileTnt(
                 ModEntities.PROJECTILE_TNT.get(),
                 level
