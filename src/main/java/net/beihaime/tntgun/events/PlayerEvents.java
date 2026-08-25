@@ -1,16 +1,13 @@
 package net.beihaime.tntgun.events;
 
 import net.beihaime.tntgun.item.LauncherItem;
-import net.beihaime.tntgun.registry.ModItem;
+import net.beihaime.tntgun.network.FirePacket;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-
+import net.beihaime.tntgun.network.ModNetwork;
 
 public class PlayerEvents {
     @SubscribeEvent
@@ -21,8 +18,8 @@ public class PlayerEvents {
             player.sendSystemMessage(Component.literal(playerName + "Fire the RPG"));
             player.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 1.0F);
 
-            launcher.fire(player);
-
+            FirePacket packet = new FirePacket();
+            ModNetwork.CHANNEL.sendToServer(new FirePacket());
         }
     }
 }
