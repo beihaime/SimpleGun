@@ -2,13 +2,12 @@ package net.beihaime.tntgun.events;
 
 import net.beihaime.tntgun.item.GunItem;
 import net.beihaime.tntgun.network.FirePacket;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.beihaime.tntgun.network.ModNetwork;
 
-public class FireEvent {
+public class Gun {
     @SubscribeEvent
     public void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
         Player player = event.getEntity();
@@ -28,6 +27,19 @@ public class FireEvent {
         }
         event.setCanceled(true);
         if (event.getSide().isClient()) {
+            ModNetwork.CHANNEL.sendToServer(new FirePacket());
+        }
+    }
+    @SubscribeEvent
+    public void onAttackEntity(net.minecraftforge.event.entity.player.AttackEntityEvent event) {
+        Player player = event.getEntity();
+        if (!(player.getMainHandItem().getItem() instanceof GunItem)) {
+            return;
+        }
+
+        event.setCanceled(true);
+
+        if (player.level().isClientSide) {
             ModNetwork.CHANNEL.sendToServer(new FirePacket());
         }
     }

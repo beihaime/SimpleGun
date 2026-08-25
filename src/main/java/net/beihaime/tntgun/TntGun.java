@@ -1,8 +1,9 @@
 package net.beihaime.tntgun;
 
 import com.mojang.logging.LogUtils;
+import net.beihaime.tntgun.client.GunClientEvents;
 import net.beihaime.tntgun.creativeTab.ModCreativeTabs;
-import net.beihaime.tntgun.events.FireEvent;
+import net.beihaime.tntgun.events.Gun;
 import net.beihaime.tntgun.registry.ModEntities;
 import net.beihaime.tntgun.registry.ModItem;
 import net.minecraftforge.api.distmarker.Dist;
@@ -36,10 +37,11 @@ public class TntGun {
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new FireEvent());
+        MinecraftForge.EVENT_BUS.register(new Gun());
 
         ModItem.ITEMS.register(modEventBus);
         ModEntities.ENTITIES.register(modEventBus);
+        MinecraftForge.EVENT_BUS.register(GunClientEvents.class);
 
         ModNetwork.register();
 

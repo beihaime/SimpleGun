@@ -1,6 +1,6 @@
 package net.beihaime.tntgun.client;
 
-import net.beihaime.tntgun.entity.ProjectileTnt;
+import  net.beihaime.tntgun.entity.ProjectileTnt;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;

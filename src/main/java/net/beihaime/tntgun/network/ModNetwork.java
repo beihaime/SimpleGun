@@ -2,7 +2,6 @@ package net.beihaime.tntgun.network;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.IndexedMessageCodec;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public class ModNetwork {

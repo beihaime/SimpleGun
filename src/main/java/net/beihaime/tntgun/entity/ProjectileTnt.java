@@ -12,7 +12,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class ProjectileTnt extends PrimedTnt {
-    private int graceTicks = 3;
     private LivingEntity shooter;
     public ProjectileTnt(EntityType<? extends PrimedTnt> type, Level level) {
         super(type, level);
@@ -21,7 +20,7 @@ public class ProjectileTnt extends PrimedTnt {
 
     public ProjectileTnt(Level level, double x, double y, double z,
                          float explodeRadius, LivingEntity owner) {
-        super(ModEntities.PROJECTILE_TNT.get(), level); // 必须用模组 EntityType
+        super(ModEntities.PROJECTILE_TNT.get(), level);
         this.setPos(x, y, z);
         this.shooter = owner;
         this.setFuse(Integer.MAX_VALUE);
@@ -45,51 +44,35 @@ public class ProjectileTnt extends PrimedTnt {
 
     @Override
     public void tick() {
-        if (graceTicks > 0) {
-            graceTicks--;
-        }
-
         if (!this.isNoGravity()) {
-            this.setDeltaMovement(
-                    this.getDeltaMovement().add(0.0D, -0.0005D, 0.0D)
-            );
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.0005D, 0.0D));
         }
-
 
         Vec3 oldPosition = this.position();
-
-        this.move(
-                MoverType.SELF,
-                this.getDeltaMovement()
-        );
-
+        this.move(MoverType.SELF, this.getDeltaMovement());
         Vec3 newPosition = this.position();
+        this.setDeltaMovement(this.getDeltaMovement().scale(0.98D));
 
-        this.setDeltaMovement(
-                this.getDeltaMovement().scale(0.98D)
-        );
+        if (level().isClientSide) {
+            return;
+        }
 
-        if (!level().isClientSide) {
-            if (graceTicks > 0) {
-                return;
+        LivingEntity owner = this.getOwner();
+
+        AABB collisionBox = new AABB(oldPosition, newPosition).inflate(0.15D);
+
+        for (Entity entity : level().getEntities(this, collisionBox, Entity::isAlive)) {
+            if (owner != null && (entity == owner || entity.isPassengerOfSameVehicle(owner))) {
+                continue;
             }
-            AABB collisionBox = new AABB(
-                    oldPosition,
-                    newPosition
-            ).inflate(0.15D);
+            discard();
+            explode();
+            return;
+        }
 
-            for (Entity entity : level().getEntities(
-                    this,
-                    collisionBox,
-                    e -> e.isAlive() && e != this.getOwner()
-            )) {
-
-                discard();
-                explode();
-                return;
-            }
-
-            if (horizontalCollision || verticalCollision) {
+        if (horizontalCollision || verticalCollision) {
+            boolean tooCloseToOwner = owner != null && this.distanceToSqr(owner) < 2.5D;
+            if (!tooCloseToOwner) {
                 discard();
                 explode();
             }
