@@ -1,5 +1,6 @@
 package net.beihaime.tntgun.events;
 
+import net.beihaime.tntgun.entity.ProjectileTnt;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -9,11 +10,13 @@ public class Fire {
     public static void fireTnt(Player player, double speed) {
         Vec3 look = player.getLookAngle();
         Level level = player.level();
-        PrimedTnt tnt = new PrimedTnt(
-                level, player.getX(),
-                player.getEyeY(),
-                player.getZ(),
-                player);
+        ProjectileTnt tnt = new ProjectileTnt(
+                level,
+                player.getX() + look.x * 0.5,
+                player.getEyeY() + look.y * 0.5,
+                player.getZ() + look.z * 0.5,
+                player
+        );
         tnt.setDeltaMovement(
                 look.x * speed,
                 look.y * speed,
