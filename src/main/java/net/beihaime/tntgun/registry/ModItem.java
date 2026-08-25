@@ -1,6 +1,6 @@
 package net.beihaime.tntgun.registry;
 
-import net.beihaime.tntgun.item.LauncherItem;
+import net.beihaime.tntgun.item.GunItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -12,11 +12,19 @@ public class ModItem {
 
     public static final RegistryObject<Item> RPG = ITEMS.register(
             "rpg",
-            () -> new LauncherItem(new Item.Properties(),4,2)
-            );
+            () -> new GunItem(new Item.Properties()
+                    .stacksTo(1),
+
+                    4,
+                    0,
+                    4
+            )
+    );
 
     public static final RegistryObject<Item> RPG_PROJECTILE = ITEMS.register(
             "rpg_projectile",
-            () -> new Item(new Item.Properties())
+            () -> new Item(new Item.Properties()
+                    .stacksTo(128)
+                    .fireResistant())
     );
 }

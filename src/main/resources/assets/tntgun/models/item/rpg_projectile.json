@@ -3,11 +3,11 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "tntgun:block/rpg_projectile",
-		"1": "tntgun:block/body",
-		"2": "tntgun:block/fins",
-		"3": "tntgun:block/finsy",
-		"particle": "rpg_projectile"
+		"0": "tntgun:block/rocket/rpg_projectile",
+		"1": "tntgun:block/rocket/body",
+		"2": "tntgun:block/rocket/fins",
+		"3": "tntgun:block/rocket/finsy",
+		"particle": "tntgun:block/rocket/rpg_projectile"
 	},
 	"elements": [
 		{

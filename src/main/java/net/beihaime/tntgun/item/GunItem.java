@@ -1,18 +1,18 @@
 package net.beihaime.tntgun.item;
 
 
-import net.beihaime.tntgun.events.Fire;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
 
-public class LauncherItem extends Item {
+public class GunItem extends Item {
     private final double speed;
     private final double cooldown;
-    public LauncherItem(Properties properties, double speed,double cooldown) {
+    private final double durability;
+    public GunItem(Properties properties, double speed, double cooldown,double durability) {
         super(properties);
         this.speed = speed;
         this.cooldown = cooldown * 20;
+        this.durability = durability;
 
     }
     public double getSpeed() {
@@ -22,4 +22,10 @@ public class LauncherItem extends Item {
     public double getCooldown() {
         return cooldown;
     }
+
+    public double getDurability() {
+        return durability;
+    }
+
+
 }
