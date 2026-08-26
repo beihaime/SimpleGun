@@ -33,14 +33,14 @@ public class Fire {
 
     public static void fire(Player player, GunItem launcher) {
         if (launcher == ModItem.RPG.get()) {
-            fireTnt(player,launcher);
+            fireRocket(player,launcher);
         } else if (launcher == ModItem.PISTOL.get()) {
-            fireBullet(player, launcher);
+            fireBullet(player, launcher );
 
         }
 
     }
-    public static void fireTnt(Player player, GunItem launcher) {
+    public static void fireRocket(Player player, GunItem launcher) {
         Vec3 look = player.getLookAngle();
         Level level = player.level();
         Rocket tnt = new Rocket(
@@ -58,21 +58,21 @@ public class Fire {
         PlaySounds.shootSound(player, launcher);
     }
 
-    public static void fireBullet (Player player, GunItem launcher) {
-
+    public static void fireBullet(Player player, GunItem launcher) {
         Vec3 look = player.getLookAngle();
         Level level = player.level();
-        Bullet  bullet = new Bullet(
-                level,
-                getProjectilePosition(player, look),
-                player
 
+        Vec3 pos = new Vec3(
+                player.getX() + look.x * 1.2,
+                player.getEyeY() - 0.1 + look.y * 1.2,
+                player.getZ() + look.z * 1.2
         );
 
-        bullet.setDeltaMovement(
-                getFireVelocity(player, launcher)
-        );
+        Bullet bullet = new Bullet(level, pos, player);
+        bullet.setOwner(player);
+        bullet.shoot(look.x, look.y, look.z, (float) launcher.getSpeed(), 0.0F);
+
         level.addFreshEntity(bullet);
-        PlaySounds.shootSound(player,launcher);
+        PlaySounds.shootSound(player, launcher);
     }
 }

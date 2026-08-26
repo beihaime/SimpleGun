@@ -15,8 +15,8 @@ public class ModItem {
             () -> new GunItem(new Item.Properties()
                     .stacksTo(1)
                     .durability(30),
-                    3,
-                    4
+                    3.5,
+                    3
             )
     );
 
@@ -25,14 +25,14 @@ public class ModItem {
             () -> new GunItem(new Item.Properties()
                     .stacksTo(1)
                     .durability(50),
-                    50,
-                    0.1)
+                    10,
+                    0.5)
     );
 
     public static final RegistryObject<Item> ROCKET = ITEMS.register(
             "rocket",
             () -> new Item(new Item.Properties()
-                    .stacksTo(128)
+                    .stacksTo(64)
                     .fireResistant())
     );
 
