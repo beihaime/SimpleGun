@@ -45,7 +45,7 @@ public class FirePacket {
                     return;
                 }
 
-                StatusChecker.consumeRocket(player);
+                StatusChecker.consumeAmmo(player);
                 ItemStack gunStack = player.getMainHandItem();
                 gunStack.hurtAndBreak(1,player,p ->
                         p.broadcastBreakEvent(net.minecraft.world.InteractionHand.MAIN_HAND)

@@ -79,7 +79,7 @@ public class RocketRenderer extends EntityRenderer<Rocket> {
 
         itemRenderer.renderStatic(
                 stack,
-                ItemDisplayContext.NONE,
+                ItemDisplayContext.FIXED,
                 packedLight,
                 OverlayTexture.NO_OVERLAY,
                 poseStack,

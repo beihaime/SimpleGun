@@ -75,7 +75,7 @@ public class BulletRenderer extends EntityRenderer<Bullet> {
 
         itemRenderer.renderStatic(
                 stack,
-                ItemDisplayContext.NONE,
+                ItemDisplayContext.FIXED,
                 packedLight,
                 OverlayTexture.NO_OVERLAY,
                 poseStack,

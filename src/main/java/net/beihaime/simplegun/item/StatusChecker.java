@@ -26,12 +26,21 @@ public class StatusChecker {
         }
         return false;
     }
-    public static void consumeRocket(Player player) {
+    public static void consumeAmmo(Player player) {
         if (!player.isCreative()) {
-            for (ItemStack stack : player.getInventory().items) {
-                if (stack.is(ModItem.ROCKET.get())) {
-                    stack.shrink(1);
-                    break;
+            if (player.getMainHandItem().getItem() == ModItem.RPG.get()) {
+                for (ItemStack stack : player.getInventory().items) {
+                    if (stack.is(ModItem.ROCKET.get())) {
+                        stack.shrink(1);
+                        break;
+                    }
+                }
+            }else if (player.getMainHandItem().getItem() == ModItem.PISTOL.get()) {
+                for (ItemStack stack : player.getInventory().items) {
+                    if (stack.is(ModItem.BULLET.get())) {
+                        stack.shrink(1);
+                        break;
+                    }
                 }
             }
         }
