@@ -1,0 +1,8 @@
+{
+  "itemGroup.simplegun.title": "简易枪械",
+  "item.simplegun.pistol": "手枪",
+  "item.simplegun.rpg": "火箭筒",
+  "item.simplegun.rpg_projectile": "火箭弹",
+  "item.simplegun.bullet": "子弹",
+  "no_ammo_warning": "你没有子弹了"
+}
