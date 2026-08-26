@@ -8,14 +8,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class Bullet extends Arrow {
-    private LivingEntity owner;
+    private LivingEntity shooter;
     public Bullet(EntityType<? extends Arrow> type, Level level) {
         super(type, level);
-        this.owner = (LivingEntity) this.getOwner();
+        this.shooter = (LivingEntity) this.getOwner();
     }
     public Bullet(Level level, Vec3 position, LivingEntity owner) {
         super(ModEntities.BULLET.get(), level);
         setPos(position.x(), position.y(), position.z());
-        this.owner = (LivingEntity) owner;
+        this.shooter = (LivingEntity) owner;
     }
+    @Override
+    public LivingEntity getOwner() {return shooter != null ? shooter : (LivingEntity) super.getOwner();}
 }
