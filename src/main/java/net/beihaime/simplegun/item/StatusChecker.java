@@ -17,7 +17,7 @@ public class StatusChecker {
         }
         for (ItemStack itemStack : player.getInventory().items) {
             if (player.getMainHandItem().getItem() == ModItem.RPG.get()
-                    && itemStack.is(ModItem.RPG_PROJECTILE.get()))  {
+                    && itemStack.is(ModItem.ROCKET.get()))  {
                 return true;
             } else if (player.getMainHandItem().getItem() == ModItem.PISTOL.get()
                     && itemStack.is(ModItem.BULLET.get())) {
@@ -29,7 +29,7 @@ public class StatusChecker {
     public static void consumeRocket(Player player) {
         if (!player.isCreative()) {
             for (ItemStack stack : player.getInventory().items) {
-                if (stack.is(ModItem.RPG_PROJECTILE.get())) {
+                if (stack.is(ModItem.ROCKET.get())) {
                     stack.shrink(1);
                     break;
                 }

@@ -18,7 +18,7 @@ public class ClientModEvents {
             EntityRenderersEvent.RegisterRenderers event
     ) {
         event.registerEntityRenderer(
-                ModEntities.PROJECTILE_TNT.get(),
+                ModEntities.ROCKET.get(),
                 RocketRenderer::new
         );
         event.registerEntityRenderer(

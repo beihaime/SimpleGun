@@ -17,12 +17,12 @@ public class ModCreativeTabs {
             CREATIVE_MODE_TABS.register(
                     "tnt_gun",
                     () -> CreativeModeTab.builder()
-                            .icon(() -> new ItemStack(ModItem.RPG_PROJECTILE.get()))
+                            .icon(() -> new ItemStack(ModItem.ROCKET.get()))
                             .title(Component.translatable("itemGroup.simplegun.title"))
                             .displayItems((pParameters, pOutput) -> {
                                 pOutput.accept(ModItem.RPG.get());
                                 pOutput.accept(ModItem.PISTOL.get());
-                                pOutput.accept(ModItem.RPG_PROJECTILE.get());
+                                pOutput.accept(ModItem.ROCKET.get());
                                 pOutput.accept(ModItem.BULLET.get());
                             })
                             .build()

@@ -17,9 +17,9 @@ public class ModEntities {
                     "simplegun"
             );
 
-    public static final RegistryObject<EntityType<Rocket>> PROJECTILE_TNT =
+    public static final RegistryObject<EntityType<Rocket>> ROCKET =
             ENTITIES.register(
-                    "projectile_tnt",
+                    "rocket",
                     () -> EntityType.Builder
                             .of(
                                     (EntityType<Rocket> type, Level level)
@@ -27,7 +27,7 @@ public class ModEntities {
                                     MobCategory.MISC
                             )
                             .sized(0.98F, 0.98F)
-                            .build("projectile_tnt")
+                            .build("rocket")
             );
 
     public static final RegistryObject<EntityType<Bullet>> BULLET =

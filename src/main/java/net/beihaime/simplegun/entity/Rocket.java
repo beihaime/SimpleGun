@@ -25,7 +25,7 @@ public class Rocket extends PrimedTnt {
     public Rocket(Level level,
                   Vec3 position,
                   float explodeRadius, LivingEntity owner) {
-        super(ModEntities.PROJECTILE_TNT.get(), level);
+        super(ModEntities.ROCKET.get(), level);
         this.setPos(position.x, position.y, position.z);
         this.shooter = owner;
         this.explodeRadius = explodeRadius;

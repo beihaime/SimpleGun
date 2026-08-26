@@ -1,6 +1,7 @@
 package net.beihaime.simplegun.client;
 
 import net.beihaime.simplegun.entity.Rocket;
+import net.beihaime.simplegun.registry.ModEntities;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -27,9 +28,10 @@ public class RocketRenderer extends EntityRenderer<Rocket> {
     public ResourceLocation getTextureLocation(Rocket entity) {
         return new ResourceLocation(
                 "simplegun",
-                "textures/entity/rpg_projectile.png"
+                "textures/entity/rocket/rpg_projectile.png"
         );
     }
+    
     @Override
     public void render(
             Rocket entity,
@@ -40,7 +42,7 @@ public class RocketRenderer extends EntityRenderer<Rocket> {
             int packedLight
     ) {
         ItemStack stack = new ItemStack(
-                ModItem.RPG_PROJECTILE.get()
+                ModItem.ROCKET.get()
         );
 
         Vec3 velocity = entity.getDeltaMovement();

@@ -2,7 +2,7 @@
   "itemGroup.simplegun.title": "Simple Gun",
   "item.simplegun.pistol": "Pistol",
   "item.simplegun.rpg": "RPG",
-  "item.simplegun.rpg_projectile": "Rocket",
+  "item.simplegun.rocket": "Rocket",
   "item.simplegun.bullet": "Bullet",
   "no_ammo_warning": "You don't have ammo"
 }

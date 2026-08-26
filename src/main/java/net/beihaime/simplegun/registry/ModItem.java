@@ -29,8 +29,8 @@ public class ModItem {
                     0.1)
     );
 
-    public static final RegistryObject<Item> RPG_PROJECTILE = ITEMS.register(
-            "rpg_projectile",
+    public static final RegistryObject<Item> ROCKET = ITEMS.register(
+            "rocket",
             () -> new Item(new Item.Properties()
                     .stacksTo(128)
                     .fireResistant())
