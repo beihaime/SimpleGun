@@ -56,12 +56,13 @@ public class Fire {
 
     public static void fireBullet(Player player, GunItem launcher) {
         Level level = player.level();
-        Vec3 muzzle = getMuzzlePosition(player, 0.7, 0.22, 0.18);
+        Vec3 look = player.getLookAngle();
+        Vec3 pos = player.getEyePosition().add(look.scale(0.4)).add(0.0, -0.2, 0.0);;
 
-        Bullet bullet = new Bullet(level, muzzle, player);
+        Bullet bullet = new Bullet(level, pos, player);
         bullet.setOwner(player);
         bullet.setNoGravity(true);
-        bullet.setDeltaMovement(player.getLookAngle().scale(launcher.getSpeed()));
+        bullet.setDeltaMovement(look.scale(launcher.getSpeed()));
 
         level.addFreshEntity(bullet);
         PlaySounds.shootSound(player, launcher);

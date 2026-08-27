@@ -36,7 +36,7 @@ public class ModEntities {
                         ->new Bullet(type,level),
                     MobCategory.MISC
             )
-                            .sized(0.98F,0.98F)
+                            .sized(0.15F,0.15F)
                     .build("bullet")
             );
 }

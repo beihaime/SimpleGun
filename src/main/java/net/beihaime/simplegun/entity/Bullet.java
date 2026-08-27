@@ -1,18 +1,17 @@
 package net.beihaime.simplegun.entity;
 
 import net.beihaime.simplegun.registry.ModEntities;
-import net.beihaime.simplegun.registry.ModItem;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 
 public class Bullet extends Arrow {
 
@@ -43,53 +42,59 @@ public class Bullet extends Arrow {
 
     @Override
     public void tick() {
-        Vec3 oldPosition = this.position();
-        Vec3 intended = oldPosition.add(this.getDeltaMovement());
-
-        this.move(MoverType.SELF, this.getDeltaMovement());
-        this.setDeltaMovement(this.getDeltaMovement().scale(0.99D));
-
         if (level().isClientSide) {
+            this.move(MoverType.SELF, this.getDeltaMovement());
             return;
         }
 
-        LivingEntity owner = this.getOwner() instanceof LivingEntity living ? living : null;
-        double reach = oldPosition.distanceToSqr(intended);
-
-        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(
-                this,
-                oldPosition,
-                intended,
-                this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0),
-                e -> e.isAlive()
-                        && e instanceof LivingEntity
-                        && e != owner
-                        && (owner == null || !e.isPassengerOfSameVehicle(owner)),
-                reach
-        );
-
-        if (entityHit != null && entityHit.getEntity() instanceof LivingEntity living) {
-            living.hurt(this.damageSources().mobProjectile(this, owner), 8.0F);
+        Vec3 motion = this.getDeltaMovement();
+        double speed = motion.length();
+        if (speed < 1.0E-6) {
             discard();
             return;
         }
 
-        if (this.horizontalCollision || this.verticalCollision) {
-            discard();
-            return;
+        int steps = Math.max(1, (int) Math.ceil(speed)); // 每步约 1 格
+        Vec3 step = motion.scale(1.0 / steps);
+        LivingEntity owner = this.getOwner() instanceof LivingEntity l ? l : null;
+
+        for (int i = 0; i < steps; i++) {
+            Vec3 start = this.position();
+            Vec3 end = start.add(step);
+
+            EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(
+                    this,
+                    start,
+                    end,
+                    new AABB(start, end).inflate(1.0),
+                    e -> e.isAlive()
+                            && e instanceof LivingEntity
+                            && e != owner
+                            && (owner == null || !e.isPassengerOfSameVehicle(owner)),
+                    start.distanceToSqr(end) + 1.0
+            );
+            if (entityHit != null && entityHit.getEntity() instanceof LivingEntity living) {
+                DamageHelper.hit(living, owner, this, 8.0F);
+                discard();
+                return;
+            }
+
+            var blockHit = level().clip(new net.minecraft.world.level.ClipContext(
+                    start,
+                    end,
+                    net.minecraft.world.level.ClipContext.Block.COLLIDER,
+                    net.minecraft.world.level.ClipContext.Fluid.NONE,
+                    this
+            ));
+            if (blockHit.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) {
+                this.setPos(blockHit.getLocation());
+                discard();
+                return;
+            }
+
+            this.setPos(end);
         }
 
-        var hit = level().clip(new net.minecraft.world.level.ClipContext(
-                oldPosition,
-                intended,
-                net.minecraft.world.level.ClipContext.Block.COLLIDER,
-                net.minecraft.world.level.ClipContext.Fluid.NONE,
-                this
-        ));
-        if (hit.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) {
-            this.setPos(hit.getLocation());
-            discard();
-        }
+        this.setDeltaMovement(motion.scale(0.99D));
     }
-
 }

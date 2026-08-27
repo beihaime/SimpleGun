@@ -89,7 +89,7 @@ public class Rocket extends PrimedTnt {
                 continue;
             }
             if (entity instanceof LivingEntity living) {
-                living.hurt(this.damageSources().explosion(this, owner), 40.0F);
+                DamageHelper.hit(living, owner, this, 100.0F);
             }
             explode();
             discard();
