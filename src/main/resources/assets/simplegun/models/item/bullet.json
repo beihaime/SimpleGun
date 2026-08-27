@@ -50,6 +50,11 @@
     }
   ],
   "display": {
+    "fixed": {
+      "rotation": [90, 0, 0],
+      "translation": [0, 0, 0],
+      "scale": [1.5, 1.5, 1.5]
+    },
     "thirdperson_righthand": {
       "rotation": [-59, 0, 0],
       "translation": [0, -0.5, 7]

@@ -14,7 +14,6 @@ public class Rocket extends PrimedTnt {
 
     private LivingEntity shooter;
     private final float explodeRadius;
-    private int graceTicks = 4;
 
     public Rocket(EntityType<? extends PrimedTnt> type, Level level) {
         super(type, level);
@@ -51,12 +50,6 @@ public class Rocket extends PrimedTnt {
 
     @Override
     public void tick() {
-        if (graceTicks > 0) {
-            graceTicks--;
-            this.noPhysics = true;
-        } else {
-            this.noPhysics = false;
-        }
 
         int fuse = this.getFuse();
         if (fuse > 0) {
