@@ -1,47 +1,43 @@
 package net.beihaime.simplegun.item;
 
-import net.beihaime.simplegun.registry.ModItem;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class StatusChecker {
+
     public static boolean isOnCoolDown(Player player) {
-        if (player.getCooldowns().isOnCooldown(player.getMainHandItem().getItem())) {
-            return true;
-        }
-        return false;
+        return player.getCooldowns().isOnCooldown(player.getMainHandItem().getItem());
     }
+
     public static boolean hasAmmo(Player player) {
         if (player.isCreative()) {
             return true;
         }
-        for (ItemStack itemStack : player.getInventory().items) {
-            if (player.getMainHandItem().getItem() == ModItem.RPG.get()
-                    && itemStack.is(ModItem.ROCKET.get()))  {
-                return true;
-            } else if (player.getMainHandItem().getItem() == ModItem.PISTOL.get()
-                    && itemStack.is(ModItem.BULLET.get())) {
+        if (!(player.getMainHandItem().getItem() instanceof GunItem gun)) {
+            return false;
+        }
+        Item ammo = gun.getAmmo();
+        for (ItemStack stack : player.getInventory().items) {
+            if (stack.is(ammo)) {
                 return true;
             }
         }
         return false;
     }
+
     public static void consumeAmmo(Player player) {
-        if (!player.isCreative()) {
-            if (player.getMainHandItem().getItem() == ModItem.RPG.get()) {
-                for (ItemStack stack : player.getInventory().items) {
-                    if (stack.is(ModItem.ROCKET.get())) {
-                        stack.shrink(1);
-                        break;
-                    }
-                }
-            }else if (player.getMainHandItem().getItem() == ModItem.PISTOL.get()) {
-                for (ItemStack stack : player.getInventory().items) {
-                    if (stack.is(ModItem.BULLET.get())) {
-                        stack.shrink(1);
-                        break;
-                    }
-                }
+        if (player.isCreative()) {
+            return;
+        }
+        if (!(player.getMainHandItem().getItem() instanceof GunItem gun)) {
+            return;
+        }
+        Item ammo = gun.getAmmo();
+        for (ItemStack stack : player.getInventory().items) {
+            if (stack.is(ammo)) {
+                stack.shrink(1);
+                return;
             }
         }
     }

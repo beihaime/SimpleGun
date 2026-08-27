@@ -21,7 +21,7 @@ public class PlaySounds {
         );
     }
     public static void shootSound(Player player, GunItem launcher) {
-        if (launcher == ModItem.RPG.get()) {
+        if (launcher.getAmmo() == ModItem.ROCKET.get()) {
             player.level().playSound(
                     null,
                     player.getX(), player.getY(), player.getZ(),
@@ -30,7 +30,7 @@ public class PlaySounds {
                     1.0F,
                     1.0F
             );
-        } else if (launcher == ModItem.PISTOL.get()) {
+        } else if (launcher.getAmmo() == ModItem.BULLET.get()) {
             player.level().playSound(
                     null,
                     player.getX(), player.getY(), player.getZ(),

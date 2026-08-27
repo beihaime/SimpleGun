@@ -11,19 +11,36 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
+import java.util.function.Supplier;
+
 public class GunItem extends Item {
 
     private final double speed;
     private final double cooldown;
-
-    public GunItem(Properties properties, double speed, double cooldown) {
+    private final boolean automatic;
+    private final Supplier<Item> ammo;
+    public GunItem(Properties properties,
+                   double speed,
+                   double cooldown,
+                   Supplier ammo,
+                   boolean automatic) {
         super(properties);
         this.speed = speed;
         this.cooldown = cooldown * 20;
+        this.automatic = automatic;
+        this.ammo = ammo;
+    }
+
+    public Item getAmmo() {
+        return ammo.get();
     }
 
     public double getSpeed() {
         return speed;
+    }
+
+    public boolean isAutomatic() {
+        return automatic;
     }
 
     public double getCooldown() {

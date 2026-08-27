@@ -32,59 +32,43 @@ public class GunClientEvents {
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
-
         if (event.phase != TickEvent.Phase.END) {
             return;
         }
 
         Minecraft mc = Minecraft.getInstance();
-
         if (mc.player == null) {
             return;
         }
-        boolean isAiming =
-                mc.player.isUsingItem()
-                        && mc.player.getUseItem().getItem() instanceof GunItem;
+
+        boolean isAiming = mc.player.isUsingItem()
+                && mc.player.getUseItem().getItem() instanceof GunItem;
+
         if (isAiming && !aiming) {
-
-            originalSensitivity =
-                    mc.options.sensitivity().get();
-
-            mc.options.sensitivity().set(
-                    originalSensitivity * 0.25
-            );
-
+            originalSensitivity = mc.options.sensitivity().get();
+            mc.options.sensitivity().set(originalSensitivity * 0.25);
             aiming = true;
         }
         if (!isAiming && aiming) {
-
-            mc.options.sensitivity().set(
-                    originalSensitivity
-            );
-
+            mc.options.sensitivity().set(originalSensitivity);
             aiming = false;
         }
+
         if (!(mc.player.getMainHandItem().getItem() instanceof GunItem gun)) {
-
             wasAttackDown = false;
             return;
         }
-        if (!isAiming) {
 
-            wasAttackDown = false;
-            return;
-        }
         boolean attackDown = mc.options.keyAttack.isDown();
+        boolean shouldFire = gun.isAutomatic()
+                ? attackDown
+                : (attackDown && !wasAttackDown);
 
-        if (attackDown && !wasAttackDown) {
-
-            if (!mc.player.getCooldowns().isOnCooldown(gun)) {
-
-                ModNetwork.CHANNEL.sendToServer(
-                        new FirePacket()
-                );
-            }
+        if (shouldFire && !mc.player.getCooldowns().isOnCooldown(gun)) {
+            ModNetwork.CHANNEL.sendToServer(new FirePacket());
         }
         wasAttackDown = attackDown;
     }
+
+
 }

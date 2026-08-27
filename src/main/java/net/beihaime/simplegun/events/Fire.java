@@ -45,9 +45,9 @@ public class Fire {
     }
 
     public static void fire(Player player, GunItem launcher) {
-        if (launcher == ModItem.RPG.get()) {
+        if (launcher.getAmmo() == ModItem.ROCKET.get()) {
             fireRocket(player,launcher);
-        } else if (launcher == ModItem.PISTOL.get()) {
+        } else if (launcher.getAmmo() == ModItem.BULLET.get()) {
             fireBullet(player, launcher );
 
         }

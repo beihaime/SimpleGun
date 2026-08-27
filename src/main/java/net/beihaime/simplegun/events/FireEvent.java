@@ -8,6 +8,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.beihaime.simplegun.network.ModNetwork;
 
 public class FireEvent {
+    private static int holdTicks = 0;
+
     @SubscribeEvent
     public void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
         Player player = event.getEntity();
