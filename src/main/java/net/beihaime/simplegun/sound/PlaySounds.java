@@ -2,6 +2,7 @@ package net.beihaime.simplegun.sound;
 
 import net.beihaime.simplegun.item.GunItem;
 import net.beihaime.simplegun.registry.ModItem;
+import net.beihaime.simplegun.registry.ModSounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -20,27 +21,22 @@ public class PlaySounds {
         );
     }
     public static void shootSound(Player player, GunItem launcher) {
-        if  (launcher == ModItem.RPG.get()) {
+        if (launcher == ModItem.RPG.get()) {
             player.level().playSound(
                     null,
-                    player.getX(),
-                    player.getY(),
-                    player.getZ(),
-                    SoundEvents.GENERIC_EXPLODE,
+                    player.getX(), player.getY(), player.getZ(),
+                    ModSounds.RPG_SHOOT.get(),
                     SoundSource.PLAYERS,
-                    0.5F,
+                    1.0F,
                     1.0F
             );
-        }
-        else if (launcher == ModItem.PISTOL.get()) {
+        } else if (launcher == ModItem.PISTOL.get()) {
             player.level().playSound(
                     null,
-                    player.getX(),
-                    player.getY(),
-                    player.getZ(),
-                    SoundEvents.CROSSBOW_SHOOT,
+                    player.getX(), player.getY(), player.getZ(),
+                    ModSounds.PISTOL_SHOOT.get(),
                     SoundSource.PLAYERS,
-                    0.5F,
+                    1.0F,
                     1.0F
             );
         }

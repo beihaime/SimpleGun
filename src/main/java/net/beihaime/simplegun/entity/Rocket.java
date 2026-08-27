@@ -17,7 +17,7 @@ public class Rocket extends PrimedTnt {
 
     public Rocket(EntityType<? extends PrimedTnt> type, Level level) {
         super(type, level);
-        this.explodeRadius = 4.0F;
+        this.explodeRadius = 10.0F;
         this.setFuse(200);
     }
 

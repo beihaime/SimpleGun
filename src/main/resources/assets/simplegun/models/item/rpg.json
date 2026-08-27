@@ -1,6 +1,152 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "minecraft:item/fishing_rod"
-  }
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"texture_size": [128, 128],
+	"textures": {
+		"0": "simplegun:item/rpg",
+		"particle": "simplegun:item/rpg"
+	},
+	"elements": [
+		{
+			"name": "barrel",
+			"from": [0, 24, -7],
+			"to": [6, 30, 27],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 24.25, 9.5]},
+			"faces": {
+				"north": {"uv": [4.25, 4.25, 5, 5], "texture": "#0"},
+				"east": {"uv": [0, 4.25, 4.25, 5], "texture": "#0"},
+				"south": {"uv": [9.25, 4.25, 10, 5], "texture": "#0"},
+				"west": {"uv": [5, 4.25, 9.25, 5], "texture": "#0"},
+				"up": {"uv": [5, 4.25, 4.25, 0], "texture": "#0"},
+				"down": {"uv": [5.75, 0, 5, 4.25], "texture": "#0"}
+			}
+		},
+		{
+			"name": "head",
+			"from": [-1, 23, 27],
+			"to": [7, 31, 29],
+			"rotation": {"angle": 0, "axis": "z", "origin": [6, 24.25, 9.5]},
+			"faces": {
+				"north": {"uv": [3.25, 5.25, 4.25, 6.25], "texture": "#0"},
+				"east": {"uv": [3, 5.25, 3.25, 6.25], "texture": "#0"},
+				"south": {"uv": [4.5, 5.25, 5.5, 6.25], "texture": "#0"},
+				"west": {"uv": [4.25, 5.25, 4.5, 6.25], "texture": "#0"},
+				"up": {"uv": [4.25, 5.25, 3.25, 5], "texture": "#0"},
+				"down": {"uv": [5.25, 5, 4.25, 5.25], "texture": "#0"}
+			}
+		},
+		{
+			"name": "tail",
+			"from": [-1, 23, -11],
+			"to": [7, 31, -7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 24.25, 9.5]},
+			"faces": {
+				"north": {"uv": [0.5, 5.5, 1.5, 6.5], "texture": "#0"},
+				"east": {"uv": [0, 5.5, 0.5, 6.5], "texture": "#0"},
+				"south": {"uv": [2, 5.5, 3, 6.5], "texture": "#0"},
+				"west": {"uv": [1.5, 5.5, 2, 6.5], "texture": "#0"},
+				"up": {"uv": [1.5, 5.5, 0.5, 5], "texture": "#0"},
+				"down": {"uv": [2.5, 5, 1.5, 5.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "handle",
+			"from": [1, 16.908, 5.51014],
+			"to": [5, 23.908, 9.51014],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [6, 24.25, 9.5]},
+			"faces": {
+				"north": {"uv": [6, 5.5, 6.5, 6.375], "texture": "#0"},
+				"east": {"uv": [5.5, 5.5, 6, 6.375], "texture": "#0"},
+				"south": {"uv": [7, 5.5, 7.5, 6.375], "texture": "#0"},
+				"west": {"uv": [6.5, 5.5, 7, 6.375], "texture": "#0"},
+				"up": {"uv": [6.5, 5.5, 6, 5], "texture": "#0"},
+				"down": {"uv": [7, 5, 6.5, 5.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "trigle",
+			"from": [2, 22, 8],
+			"to": [4, 24, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 24.25, 9.5]},
+			"faces": {
+				"north": {"uv": [0.25, 6.75, 0.5, 7], "texture": "#0"},
+				"east": {"uv": [0, 6.75, 0.25, 7], "texture": "#0"},
+				"south": {"uv": [0.75, 6.75, 1, 7], "texture": "#0"},
+				"west": {"uv": [0.5, 6.75, 0.75, 7], "texture": "#0"},
+				"up": {"uv": [0.5, 6.75, 0.25, 6.5], "texture": "#0"},
+				"down": {"uv": [0.75, 6.5, 0.5, 6.75], "texture": "#0"}
+			}
+		},
+		{
+			"name": "handle",
+			"from": [1, 17, 16],
+			"to": [5, 24, 20],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 24.25, 9.5]},
+			"faces": {
+				"north": {"uv": [3.5, 6.75, 4, 7.625], "texture": "#0"},
+				"east": {"uv": [3, 6.75, 3.5, 7.625], "texture": "#0"},
+				"south": {"uv": [4.5, 6.75, 5, 7.625], "texture": "#0"},
+				"west": {"uv": [4, 6.75, 4.5, 7.625], "texture": "#0"},
+				"up": {"uv": [4, 6.75, 3.5, 6.25], "texture": "#0"},
+				"down": {"uv": [4.5, 6.25, 4, 6.75], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [-113, 2.25, -180],
+			"translation": [-2.5, -9, -3.25]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [-110.04, -5.11, -179.76],
+			"translation": [6.25, -7.75, -5.5]
+		},
+		"firstperson_righthand": {
+			"rotation": [180, 6, 180],
+			"translation": [2.25, -6.25, -4],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"firstperson_lefthand": {
+			"translation": [0, -3.5, 0],
+			"scale": [0, 0, 0]
+		},
+		"ground": {
+			"rotation": [-8, 0, 0],
+			"translation": [3.75, -12.5, 0.75]
+		},
+		"gui": {
+			"rotation": [-114.99, 39.07, 126.48],
+			"translation": [5.75, -8.5, -0.75],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"fixed": {
+			"rotation": [-90, -45, -90],
+			"translation": [-10, -13, -1.25]
+		},
+		"on_shelf": {
+			"rotation": [-90, 0.5, 90],
+			"translation": [17, 0, 0.25]
+		}
+	},
+	"groups": [
+		{
+			"name": "rpg",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [
+				0,
+				1,
+				2,
+				{
+					"name": "handle",
+					"origin": [3, 21, 14],
+					"scope": 0,
+					"color": 0,
+					"children": [3, 4]
+				},
+				5
+			]
+		}
+	]
 }

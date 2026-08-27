@@ -5,22 +5,35 @@ import net.beihaime.simplegun.entity.Rocket;
 import net.beihaime.simplegun.item.GunItem;
 import net.beihaime.simplegun.registry.ModItem;
 import net.beihaime.simplegun.sound.PlaySounds;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.phys.AABB;
 
 public class Fire {
     private static Vec3 getFireVelocity(Player player, GunItem launcher) {
-
         Vec3 look = player.getLookAngle();
         Vec3 velocity = player.getDeltaMovement();
-
         return new Vec3(
                 look.x * launcher.getSpeed() + velocity.x,
                 look.y * launcher.getSpeed(),
                 look.z * launcher.getSpeed() + velocity.z
         );
+    }
+    private static Vec3 getMuzzlePosition(Player player, double forward, double right, double down) {
+        Vec3 look = player.getLookAngle();
+        Vec3 rightDir = new Vec3(-look.z, 0.0, look.x);
+        if (rightDir.lengthSqr() < 1.0E-6) {
+            rightDir = new Vec3(1.0, 0.0, 0.0);
+        } else {
+            rightDir = rightDir.normalize();
+        }
+        return player.getEyePosition()
+                .add(look.scale(forward))
+                .add(rightDir.scale(right))
+                .add(0.0, -down, 0.0);
     }
 
     private static Vec3 getProjectilePosition(Player player, Vec3 look) {
@@ -40,39 +53,28 @@ public class Fire {
         }
 
     }
-    public static void fireRocket(Player player, GunItem launcher) {
-        Vec3 look = player.getLookAngle();
+
+    public static void fireBullet(Player player, GunItem launcher) {
         Level level = player.level();
-        Rocket tnt = new Rocket(
-                level,
-                getProjectilePosition(player, look),
-                2F,
-                player
-        );
+        Vec3 muzzle = getMuzzlePosition(player, 0.7, 0.22, 0.18);
 
-        tnt.setDeltaMovement(
-                getFireVelocity(player, launcher)
-        );
+        Bullet bullet = new Bullet(level, muzzle, player);
+        bullet.setOwner(player);
+        bullet.setNoGravity(true);
+        bullet.setDeltaMovement(player.getLookAngle().scale(launcher.getSpeed()));
 
-        level.addFreshEntity(tnt);
+        level.addFreshEntity(bullet);
         PlaySounds.shootSound(player, launcher);
     }
 
-    public static void fireBullet(Player player, GunItem launcher) {
-        Vec3 look = player.getLookAngle();
+    public static void fireRocket(Player player, GunItem launcher) {
         Level level = player.level();
+        Vec3 muzzle = getMuzzlePosition(player, 1.2, 0.40, 0.20);
 
-        Vec3 pos = new Vec3(
-                player.getX() + look.x * 1.2,
-                player.getEyeY() - 0.1 + look.y * 1.2,
-                player.getZ() + look.z * 1.2
-        );
+        Rocket rocket = new Rocket(level, muzzle, 2.0F, player);
+        rocket.setDeltaMovement(player.getLookAngle().scale(launcher.getSpeed()));
 
-        Bullet bullet = new Bullet(level, pos, player);
-        bullet.setOwner(player);
-        bullet.shoot(look.x, look.y, look.z, (float) launcher.getSpeed(), 0.0F);
-
-        level.addFreshEntity(bullet);
+        level.addFreshEntity(rocket);
         PlaySounds.shootSound(player, launcher);
     }
 }

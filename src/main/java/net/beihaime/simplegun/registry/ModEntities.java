@@ -12,10 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModEntities {
 
     public static final DeferredRegister<EntityType<?>> ENTITIES =
-            DeferredRegister.create(
-                    ForgeRegistries.ENTITY_TYPES,
-                    "simplegun"
-            );
+            DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, "simplegun");
 
     public static final RegistryObject<EntityType<Rocket>> ROCKET =
             ENTITIES.register(

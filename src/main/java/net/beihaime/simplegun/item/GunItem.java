@@ -41,9 +41,7 @@ public class GunItem extends Item {
                 1.0F,
                 1.0F
         );
-
         player.awardStat(Stats.ITEM_USED.get(this));
-
         return ItemUtils.startUsingInstantly(
                 level,
                 player,

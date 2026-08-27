@@ -19,6 +19,7 @@ public class FireEvent {
         }
 
     }
+
     @SubscribeEvent
     public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
         Player player = event.getEntity();
@@ -30,15 +31,14 @@ public class FireEvent {
             ModNetwork.CHANNEL.sendToServer(new FirePacket());
         }
     }
+
     @SubscribeEvent
     public void onAttackEntity(net.minecraftforge.event.entity.player.AttackEntityEvent event) {
         Player player = event.getEntity();
         if (!(player.getMainHandItem().getItem() instanceof GunItem)) {
             return;
         }
-
         event.setCanceled(true);
-
         if (player.level().isClientSide) {
             ModNetwork.CHANNEL.sendToServer(new FirePacket());
         }

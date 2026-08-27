@@ -28,7 +28,7 @@ public class RocketRenderer extends EntityRenderer<Rocket> {
     public ResourceLocation getTextureLocation(Rocket entity) {
         return new ResourceLocation(
                 "simplegun",
-                "textures/entity/rocket/rocket_head.png"
+                "textures/entity/rocket/rocket.png"
         );
     }
     

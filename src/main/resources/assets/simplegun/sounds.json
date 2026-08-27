@@ -1,0 +1,10 @@
+{
+  "pistol_shoot": {
+    "category": "player",
+    "sounds": [ "simplegun:pistol_shoot" ]
+  },
+  "rpg_shoot": {
+    "category": "player",
+    "sounds": [ "simplegun:rpg_shoot" ]
+  }
+}
