@@ -1,5 +1,7 @@
 package net.beihaime.simplegun.item;
 
+import net.beihaime.simplegun.sound.PlaySounds;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -18,21 +20,29 @@ public class GunItem extends Item {
     private final double speed;
     private final double cooldown;
     private final boolean automatic;
+    private final boolean aim;
     private final Supplier<Item> ammo;
     public GunItem(Properties properties,
                    double speed,
                    double cooldown,
                    Supplier ammo,
-                   boolean automatic) {
+                   boolean automatic,
+                   boolean aim
+    ) {
         super(properties);
         this.speed = speed;
         this.cooldown = cooldown * 20;
         this.automatic = automatic;
         this.ammo = ammo;
+        this.aim = aim;
     }
 
     public Item getAmmo() {
         return ammo.get();
+    }
+
+    public boolean canAim() {
+        return aim;
     }
 
     public double getSpeed() {
@@ -53,6 +63,11 @@ public class GunItem extends Item {
             Player player,
             InteractionHand hand
     ) {
+        if (!canAim()) {
+            PlaySounds.warnSound(player);
+            player.sendSystemMessage(Component.translatable("cannot_aim"));
+            return InteractionResultHolder.pass(player.getItemInHand(hand));
+        }
         player.playSound(
                 SoundEvents.SPYGLASS_USE,
                 1.0F,

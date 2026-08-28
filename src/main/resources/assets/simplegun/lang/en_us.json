@@ -5,5 +5,6 @@
   "item.simplegun.ak47": "AK47",
   "item.simplegun.rocket": "Rocket",
   "item.simplegun.bullet": "Bullet",
-  "no_ammo_warning": "You don't have ammo"
+  "no_ammo_warning": "You don't have ammo",
+  "cannot_aim": "This gun actually cannot aim"
 }

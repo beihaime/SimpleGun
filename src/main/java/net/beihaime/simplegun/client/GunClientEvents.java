@@ -3,7 +3,9 @@ package net.beihaime.simplegun.client;
 import net.beihaime.simplegun.item.GunItem;
 import net.beihaime.simplegun.network.FirePacket;
 import net.beihaime.simplegun.network.ModNetwork;
+import net.beihaime.simplegun.registry.ModItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,17 +18,18 @@ public class GunClientEvents {
 
     @SubscribeEvent
     public static void onFovModifier(ViewportEvent.ComputeFov event) {
+            Minecraft mc = Minecraft.getInstance();
 
-        Minecraft mc = Minecraft.getInstance();
+            if (mc.player == null) {
+                return;
+            }
 
-        if (mc.player == null) {
-            return;
-        }
+            if (mc.player.isUsingItem()
+                    && mc.player.getUseItem().getItem() instanceof GunItem launcher
+                    && launcher.canAim()) {
 
-        if (mc.player.isUsingItem()
-                && mc.player.getUseItem().getItem() instanceof GunItem) {
+                event.setFOV(event.getFOV() * 0.25);
 
-            event.setFOV(event.getFOV() * 0.25);
         }
     }
 

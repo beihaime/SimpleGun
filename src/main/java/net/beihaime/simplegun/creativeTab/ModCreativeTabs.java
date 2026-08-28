@@ -17,7 +17,7 @@ public class ModCreativeTabs {
             CREATIVE_MODE_TABS.register(
                     "tnt_gun",
                     () -> CreativeModeTab.builder()
-                            .icon(() -> new ItemStack(ModItem.PISTOL.get()))
+                            .icon(() -> new ItemStack(ModItem.AK47.get()))
                             .title(Component.translatable("itemGroup.simplegun.title"))
                             .displayItems((pParameters, pOutput) -> {
                                 pOutput.accept(ModItem.RPG.get());

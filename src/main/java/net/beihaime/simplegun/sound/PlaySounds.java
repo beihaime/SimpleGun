@@ -27,7 +27,7 @@ public class PlaySounds {
                     player.getX(), player.getY(), player.getZ(),
                     ModSounds.RPG_SHOOT.get(),
                     SoundSource.PLAYERS,
-                    1.0F,
+                    0.4F,
                     1.0F
             );
         } else if (launcher.getAmmo() == ModItem.BULLET.get()) {
@@ -36,7 +36,7 @@ public class PlaySounds {
                     player.getX(), player.getY(), player.getZ(),
                     ModSounds.PISTOL_SHOOT.get(),
                     SoundSource.PLAYERS,
-                    1.0F,
+                    0.5F,
                     1.0F
             );
         }

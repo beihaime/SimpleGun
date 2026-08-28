@@ -5,5 +5,6 @@
   "item.simplegun.ak47": "AK47",
   "item.simplegun.rocket": "火箭弹",
   "item.simplegun.bullet": "子弹",
-  "no_ammo_warning": "你没有子弹了"
+  "no_ammo_warning": "你没有子弹了",
+  "cannot_aim": "这把枪没有瞄准功能"
 }

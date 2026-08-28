@@ -23,7 +23,7 @@ public class ModEntities {
                                             -> new Rocket(type, level),
                                     MobCategory.MISC
                             )
-                            .sized(0.98F, 0.98F)
+                            .sized(0.4F, 0.4F)
                             .build("rocket")
             );
 
@@ -36,7 +36,7 @@ public class ModEntities {
                         ->new Bullet(type,level),
                     MobCategory.MISC
             )
-                            .sized(0.15F,0.15F)
+                            .sized(0.05F,0.05F)
                     .build("bullet")
             );
 }

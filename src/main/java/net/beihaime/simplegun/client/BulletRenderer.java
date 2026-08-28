@@ -68,6 +68,7 @@ public class BulletRenderer extends EntityRenderer<Bullet> {
         poseStack.mulPose(Axis.YP.rotationDegrees(yaw));
         poseStack.mulPose(Axis.XP.rotationDegrees(pitch));
         poseStack.translate(0.0, -0.3, 0.0);
+        poseStack.scale(0,0,0);
         itemRenderer.renderStatic(
                 stack,
                 ItemDisplayContext.NONE,
