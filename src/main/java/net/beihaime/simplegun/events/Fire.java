@@ -56,7 +56,7 @@ public class Fire {
         Vec3 look = player.getLookAngle();
         Vec3 pos = player.getEyePosition().add(look.scale(0.4)).add(0.0, -0.2, 0.0);;
 
-        Bullet bullet = new Bullet(level, pos, player);
+        Bullet bullet = new Bullet(level, pos, player,launcher.getDamage());
         bullet.setOwner(player);
         bullet.setNoGravity(true);
         bullet.setDeltaMovement(look.scale(launcher.getSpeed()));
@@ -69,7 +69,7 @@ public class Fire {
         Level level = player.level();
         Vec3 muzzle = getMuzzlePosition(player, 1.2, 0.40, 0.20);
 
-        Rocket rocket = new Rocket(level, muzzle, 2.0F, player);
+        Rocket rocket = new Rocket(level, muzzle, 2.0F, player,launcher.getDamage());
         rocket.setDeltaMovement(player.getLookAngle().scale(launcher.getSpeed()));
 
         level.addFreshEntity(rocket);

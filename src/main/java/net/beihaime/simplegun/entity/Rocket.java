@@ -14,7 +14,7 @@ public class Rocket extends PrimedTnt {
 
     private LivingEntity shooter;
     private final float explodeRadius;
-
+    private float damage;
     public Rocket(EntityType<? extends PrimedTnt> type, Level level) {
         super(type, level);
         this.explodeRadius = 10.0F;
@@ -23,11 +23,14 @@ public class Rocket extends PrimedTnt {
 
     public Rocket(Level level,
                   Vec3 position,
-                  float explodeRadius, LivingEntity owner) {
+                  float explodeRadius,
+                  LivingEntity owner,
+                  float damage) {
         super(ModEntities.ROCKET.get(), level);
         this.setPos(position.x, position.y, position.z);
         this.shooter = owner;
         this.explodeRadius = explodeRadius;
+        this.damage = damage;
         this.setFuse(200);
     }
 
@@ -89,7 +92,7 @@ public class Rocket extends PrimedTnt {
                 continue;
             }
             if (entity instanceof LivingEntity living) {
-                DamageHelper.hit(living, owner, this, 100.0F);
+                DamageHelper.hit(living, owner, this, damage);
             }
             explode();
             discard();

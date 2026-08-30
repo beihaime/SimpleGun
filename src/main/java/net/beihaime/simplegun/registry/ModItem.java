@@ -15,6 +15,7 @@ public class ModItem {
             () -> new GunItem(new Item.Properties()
                     .stacksTo(1)
                     .durability(30),
+                    100,
                     5,
                     3,
                     ModItem.ROCKET,
@@ -28,6 +29,7 @@ public class ModItem {
             () -> new GunItem(new Item.Properties()
                     .stacksTo(1)
                     .durability(50),
+                    5,
                     50,
                     0.3,
                     ModItem.BULLET,
@@ -42,6 +44,7 @@ public class ModItem {
             () -> new GunItem(new Item.Properties()
                     .stacksTo(1)
                     .durability(400),
+                    7,
                     100,
                     0.1,
                     ModItem.BULLET,

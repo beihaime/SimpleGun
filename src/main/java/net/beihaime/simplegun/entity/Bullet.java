@@ -1,10 +1,13 @@
 package net.beihaime.simplegun.entity;
 
+import net.beihaime.simplegun.item.GunItem;
 import net.beihaime.simplegun.registry.ModEntities;
+import net.beihaime.simplegun.registry.ModItem;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
@@ -14,17 +17,18 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class Bullet extends Arrow {
-
+    private float damage;
     public Bullet(EntityType<? extends Arrow> type, Level level) {
         super(type, level);
     }
 
-    public Bullet(Level level, Vec3 position, LivingEntity owner) {
+    public Bullet(Level level, Vec3 position, LivingEntity owner,float damage) {
         super(ModEntities.BULLET.get(), level);
         this.setPos(position.x, position.y, position.z);
         this.setOwner(owner);
         this.setNoGravity(true);
         this.setKnockback(4);
+        this.damage = damage;
     }
 
     @Override
@@ -74,9 +78,10 @@ public class Bullet extends Arrow {
                     start.distanceToSqr(end) + 1.0
             );
             if (entityHit != null && entityHit.getEntity() instanceof LivingEntity living) {
-                DamageHelper.hit(living, owner, this, 8.0F);
-                discard();
-                return;
+                    DamageHelper.hit(living, owner, this,damage);
+                    discard();
+                    return;
+
             }
 
             var blockHit = level().clip(new net.minecraft.world.level.ClipContext(
@@ -97,4 +102,6 @@ public class Bullet extends Arrow {
 
         this.setDeltaMovement(motion.scale(0.99D));
     }
+
+
 }
