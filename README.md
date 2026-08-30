@@ -10,6 +10,7 @@
   <img src="https://img.shields.io/badge/License-MIT-blue">
   <img src="https://img.shields.io/github/v/release/beihaime/SimpleGun">
 </p>
+
 ## Requirements
 
 - Minecraft 1.20.1
