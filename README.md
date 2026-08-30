@@ -1,14 +1,20 @@
 <p align="center"> <img src="src/main/resources/simplegun.png" width="200"> </p>
 
 <h1 align="center">SimpleGun</h1>
-
-<p align="center"> A small firearm mod for Minecraft 1.20.1 (Forge).<br> Adds an AK-47 with custom bullets and a rocket launcher with explosive projectiles. </p>
-
 <p align="center">
   <img src="https://img.shields.io/badge/Minecraft-1.20.1-2ea44f">
   <img src="https://img.shields.io/badge/Forge-1.20.1-orange">
   <img src="https://img.shields.io/badge/License-MIT-blue">
-  <img src="https://img.shields.io/github/v/release/beihaime/SimpleGun">
+</p>
+
+<p align="center">
+  <a href="https://modrinth.com/mod/simplegun">
+    <img src="https://img.shields.io/modrinth/v/simplegun?logo=modrinth&label=Modrinth">
+  </a>
+  <a href="https://github.com/beihaime/SimpleGun/releases">
+    <img src="https://img.shields.io/github/v/release/beihaime/SimpleGun?label=GitHub%20Release">
+  </a>
+</p>
 </p>
 
 ## Requirements
