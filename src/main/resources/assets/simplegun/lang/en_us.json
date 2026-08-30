@@ -6,5 +6,7 @@
   "item.simplegun.rocket": "Rocket",
   "item.simplegun.bullet": "Bullet",
   "no_ammo_warning": "You don't have ammo",
-  "cannot_aim": "This gun actually cannot aim"
+  "cannot_aim": "This gun actually cannot aim",
+  "advancements.simplegun.first_gun.title": "New generation",
+  "advancements.simplegun.first_gun.description": "Obtain an AK-47"
 }

@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "simplegun:ak47"
+    },
+    "title": {
+      "translate": "advancements.simplegun.first_gun.title"
+    },
+    "description": {
+      "translate": "advancements.simplegun.first_gun.description"
+    },
+    "background": "minecraft:textures/block/stone.png",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_ak47": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplegun:ak47"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

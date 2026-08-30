@@ -71,8 +71,6 @@ public class GunItem extends Item {
             InteractionHand hand
     ) {
         if (!canAim()) {
-            PlaySounds.warnSound(player);
-            player.sendSystemMessage(Component.translatable("cannot_aim"));
             return InteractionResultHolder.pass(player.getItemInHand(hand));
         }
         player.playSound(

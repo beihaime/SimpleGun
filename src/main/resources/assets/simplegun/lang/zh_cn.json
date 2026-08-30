@@ -6,5 +6,7 @@
   "item.simplegun.rocket": "火箭弹",
   "item.simplegun.bullet": "子弹",
   "no_ammo_warning": "你没有子弹了",
-  "cannot_aim": "这把枪没有瞄准功能"
+  "cannot_aim": "这把枪没有瞄准功能",
+  "advancements.simplegun.first_gun.title": "大人，时代变了",
+  "advancements.simplegun.first_gun.description": "获得一把 AK-47"
 }

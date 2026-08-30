@@ -20,9 +20,9 @@ public class ModCreativeTabs {
                             .icon(() -> new ItemStack(ModItem.AK47.get()))
                             .title(Component.translatable("itemGroup.simplegun.title"))
                             .displayItems((pParameters, pOutput) -> {
-                                pOutput.accept(ModItem.RPG.get());
                                 pOutput.accept(ModItem.PISTOL.get());
                                 pOutput.accept(ModItem.AK47.get());
+                                pOutput.accept(ModItem.RPG.get());
                                 pOutput.accept(ModItem.ROCKET.get());
                                 pOutput.accept(ModItem.BULLET.get());
                             })
