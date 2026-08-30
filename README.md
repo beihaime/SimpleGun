@@ -4,8 +4,12 @@
 
 <p align="center"> A small firearm mod for Minecraft 1.20.1 (Forge).<br> Adds an AK-47 with custom bullets and a rocket launcher with explosive projectiles. </p>
 
-<p align="center"> <img src="https://img.shields.io/badge/Minecraft-1.20.1-2ea44f"> <img src="https://img.shields.io/badge/Forge-1.20.1-orange"> <img src="https://img.shields.io/badge/License-MIT-blue"> </p>
-
+<p align="center">
+  <img src="https://img.shields.io/badge/Minecraft-1.20.1-2ea44f">
+  <img src="https://img.shields.io/badge/Forge-1.20.1-orange">
+  <img src="https://img.shields.io/badge/License-MIT-blue">
+  <img src="https://img.shields.io/github/v/release/beihaime/SimpleGun">
+</p>
 ## Requirements
 
 - Minecraft 1.20.1
