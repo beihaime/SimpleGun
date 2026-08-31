@@ -18,7 +18,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.beihaime.simplegun.events.ReloadManager;
 import org.slf4j.Logger;
+
 
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -46,8 +48,8 @@ public class SimpleGun {
         ModEntities.ENTITIES.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(GunClientEvents.class);
         MinecraftForge.EVENT_BUS.register(new Charge());
-        MinecraftForge.EVENT_BUS.register(new Charge());
         modEventBus.register(ModKeys.class);
+        MinecraftForge.EVENT_BUS.register(ReloadManager.class);
         ModNetwork.register();
 
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);

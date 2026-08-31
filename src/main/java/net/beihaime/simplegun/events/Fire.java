@@ -42,11 +42,14 @@ public class Fire {
     }
 
     public static void fire(Player player, GunItem launcher) {
-        if (launcher.getAmmo() == ModItem.ROCKET.get()) {
-            fireRocket(player,launcher);
-        } else if (launcher.getAmmo() == ModItem.BULLET.get()) {
-            fireBullet(player, launcher );
+        boolean reloading = ReloadManager.isReloading(player);
+        if (!reloading) {
+            if (launcher.getAmmo() == ModItem.ROCKET.get()) {
+                fireRocket(player,launcher);
+            } else if (launcher.getAmmo() == ModItem.BULLET.get()) {
+                fireBullet(player, launcher );
 
+            }
         }
 
     }

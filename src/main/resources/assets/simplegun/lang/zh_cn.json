@@ -10,5 +10,7 @@
   "advancements.simplegun.first_gun.title": "大人，时代变了",
   "advancements.simplegun.first_gun.description": "获得一把 AK-47",
   "key.simplegun.charge": "换弹",
-  "key.categories.simplegun": "简单枪械"
+  "key.categories.simplegun": "简单枪械",
+  "message.simplegun.reloading": "换弹中！"
+
 }

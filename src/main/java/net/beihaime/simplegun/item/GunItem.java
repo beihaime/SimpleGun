@@ -40,7 +40,7 @@ public class GunItem extends Item {
         this.automatic = automatic;
         this.ammo = ammo;
         this.aim = aim;
-        this.chargeTime = chargeTime;
+        this.chargeTime = chargeTime * 20;
     }
 
     public double getChargeTime() {

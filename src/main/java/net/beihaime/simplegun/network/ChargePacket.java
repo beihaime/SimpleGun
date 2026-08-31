@@ -42,15 +42,21 @@ public class ChargePacket {
             }
 
             if (ReloadManager.isReloading(player)) {
+                System.out.println("BLOCKED: player is reloading");
                 return;
             }
 
-            if (player.getMainHandItem().getItem()
-                    instanceof GunItem gun) {
+            if (player.getMainHandItem().getItem() instanceof GunItem gun) {
 
                 int chargeTime = (int) gun.getChargeTime();
 
-                ReloadManager.start(player, chargeTime);
+                System.out.println("START RELOAD: " + chargeTime);
+
+                ReloadManager.start(
+                        player,
+                        player.getMainHandItem(),
+                        chargeTime
+                );
 
                 PlaySounds.chargeSound(player);
             }

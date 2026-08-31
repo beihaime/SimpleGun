@@ -10,5 +10,6 @@
   "advancements.simplegun.first_gun.title": "New generation",
   "advancements.simplegun.first_gun.description": "Obtain an AK-47",
   "key.simplegun.charge": "Charge",
-  "key.categories.simplegun": "SimpleGun"
+  "key.categories.simplegun": "SimpleGun",
+  "message.simplegun.reloading": "Reloading!"
 }

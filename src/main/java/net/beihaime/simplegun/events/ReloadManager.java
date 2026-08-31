@@ -1,6 +1,9 @@
 package net.beihaime.simplegun.events;
 
+import net.beihaime.simplegun.item.GunItem;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -11,13 +14,16 @@ import java.util.UUID;
 
 public class ReloadManager {
 
-    private static final Map<UUID, Integer> RELOAD_TIMERS = new HashMap<>();
+    private static final Map<UUID, ReloadState> RELOAD_TIMERS = new HashMap<>();
 
-    public static void start(ServerPlayer player, int ticks) {
-        RELOAD_TIMERS.put(player.getUUID(), ticks);
+    public static void start(ServerPlayer player, ItemStack stack, int ticks) {
+        RELOAD_TIMERS.put(
+                player.getUUID(),
+                new ReloadState(stack, ticks)
+        );
     }
 
-    public static boolean isReloading(ServerPlayer player) {
+    public static boolean isReloading(Player player) {
         return RELOAD_TIMERS.containsKey(player.getUUID());
     }
 
@@ -28,25 +34,56 @@ public class ReloadManager {
             return;
         }
 
-        Iterator<Map.Entry<UUID, Integer>> iterator =
+        Iterator<Map.Entry<UUID, ReloadState>> iterator =
                 RELOAD_TIMERS.entrySet().iterator();
 
         while (iterator.hasNext()) {
 
-            Map.Entry<UUID, Integer> entry = iterator.next();
+            Map.Entry<UUID, ReloadState> entry = iterator.next();
 
-            int remaining = entry.getValue() - 1;
+            UUID uuid = entry.getKey();
+            ReloadState state = entry.getValue();
 
-            if (remaining <= 0) {
+            ServerPlayer player =
+                    event.getServer()
+                            .getPlayerList()
+                            .getPlayer(uuid);
+
+            if (player == null) {
+                iterator.remove();
+                continue;
+            }
+
+            ItemStack currentStack = player.getMainHandItem();
+
+            if (currentStack != state.stack) {
+
 
                 iterator.remove();
 
-                System.out.println("Reload finished");
-
-            } else {
-
-                entry.setValue(remaining);
+                continue;
             }
+
+            state.remainingTicks--;
+
+
+            if (state.remainingTicks <= 0) {
+
+                iterator.remove();
+
+
+            }
+        }
+    }
+
+    private static class ReloadState {
+
+        private final ItemStack stack;
+        private int remainingTicks;
+
+        private ReloadState(ItemStack stack, int remainingTicks) {
+            this.stack = stack;
+            this.remainingTicks = remainingTicks;
         }
     }
 }

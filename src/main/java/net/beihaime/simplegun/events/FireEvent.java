@@ -2,6 +2,7 @@ package net.beihaime.simplegun.events;
 
 import net.beihaime.simplegun.item.GunItem;
 import net.beihaime.simplegun.network.FirePacket;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

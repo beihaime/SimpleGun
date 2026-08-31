@@ -1,5 +1,6 @@
 package net.beihaime.simplegun.network;
 
+import net.beihaime.simplegun.events.ReloadManager;
 import net.beihaime.simplegun.item.StatusChecker;
 import net.beihaime.simplegun.item.GunItem;
 import net.beihaime.simplegun.sound.PlaySounds;
@@ -36,6 +37,11 @@ public class FirePacket {
             }
 
             if (player.getMainHandItem().getItem() instanceof GunItem launcher) {
+                boolean reloading = ReloadManager.isReloading(player);
+                if (reloading) {
+                    player.sendSystemMessage(Component.translatable("message.simplegun.reloading"));
+                    return;
+                }
                 if (StatusChecker.isOnCoolDown(player)) {
                     return;
                 }
