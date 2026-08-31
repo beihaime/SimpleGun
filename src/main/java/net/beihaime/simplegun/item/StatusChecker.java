@@ -26,19 +26,66 @@ public class StatusChecker {
         return false;
     }
 
-    public static void consumeAmmo(Player player) {
-        if (player.isCreative()) {
-            return;
-        }
+    public static boolean hasMagazine(Player player) {
+
         if (!(player.getMainHandItem().getItem() instanceof GunItem gun)) {
-            return;
+            return false;
         }
+
+        ItemStack gunStack = player.getMainHandItem();
+
+        return gun.getMagazineAmmo(gunStack) > 0;
+    }
+
+    public static int consumeAmmo(Player player, int amount) {
+
+        if (player.isCreative()) {
+            return amount;
+        }
+
+        if (!(player.getMainHandItem().getItem() instanceof GunItem gun)) {
+            return 0;
+        }
+
         Item ammo = gun.getAmmo();
+        int consumed = 0;
+
         for (ItemStack stack : player.getInventory().items) {
-            if (stack.is(ammo)) {
-                stack.shrink(1);
-                return;
+
+            if (!stack.is(ammo)) {
+                continue;
+            }
+
+            int consume = Math.min(
+                    amount - consumed,
+                    stack.getCount()
+            );
+
+            stack.shrink(consume);
+            consumed += consume;
+
+            if (consumed >= amount) {
+                break;
             }
         }
+
+        return consumed;
+    }
+
+    public static int getReserveAmmo(Player player) {
+        if (!(player.getMainHandItem().getItem() instanceof GunItem gun)) {
+            return 0;
+        }
+
+        Item ammo = gun.getAmmo();
+        int count = 0;
+
+        for (ItemStack stack : player.getInventory().items) {
+            if (stack.is(ammo)) {
+                count += stack.getCount();
+            }
+        }
+
+        return count;
     }
 }

@@ -36,33 +36,57 @@ public class FirePacket {
                 return;
             }
 
-            if (player.getMainHandItem().getItem() instanceof GunItem launcher) {
-                boolean reloading = ReloadManager.isReloading(player);
-                if (reloading) {
-                    player.sendSystemMessage(Component.translatable("message.simplegun.reloading"));
-                    return;
-                }
-                if (StatusChecker.isOnCoolDown(player)) {
-                    return;
-                }
-                if (!StatusChecker.hasAmmo(player)) {
-                    player.sendSystemMessage(Component.translatable("no_ammo_warning"));
-                    PlaySounds.warnSound(player);
-                    return;
-                }
-
-                StatusChecker.consumeAmmo(player);
-                ItemStack gunStack = player.getMainHandItem();
-                gunStack.hurtAndBreak(1,player,p ->
-                        p.broadcastBreakEvent(net.minecraft.world.InteractionHand.MAIN_HAND)
-                );
-
-                Fire.fire(player, launcher);
-                player.getCooldowns().addCooldown(
-                        launcher,
-                        (int) launcher.getCooldown()
-                );
+            if (!(player.getMainHandItem().getItem() instanceof GunItem launcher)) {
+                return;
             }
+
+            ItemStack gunStack = player.getMainHandItem();
+
+            if (ReloadManager.isReloading(player)) {
+
+                double remainingSeconds =
+                        ReloadManager.getRemainingTicks(player) / 20.0;
+
+                player.sendSystemMessage(
+                        Component.translatable(
+                                "message.simplegun.reloading",
+                                String.format("%.1f", remainingSeconds)
+                        )
+                );
+
+                return;
+            }
+
+            if (StatusChecker.isOnCoolDown(player)) {
+                return;
+            }
+
+            int ammo = launcher.getMagazineAmmo(gunStack);
+
+            System.out.println(
+                    "Magazine: "
+                            + ammo
+                            + "/"
+                            + launcher.getMagazineSize()
+            );
+
+            if (ammo <= 0) {
+                PlaySounds.warnSound(player);
+                player.sendSystemMessage(Component.translatable("no_ammo_warning"));
+                return;
+            }
+
+            launcher.setMagazineAmmo(
+                    gunStack,
+                    ammo - 1
+            );
+
+            Fire.fire(player, launcher);
+
+            player.getCooldowns().addCooldown(
+                    launcher,
+                    (int) launcher.getCooldown()
+            );
         });
 
         context.setPacketHandled(true);

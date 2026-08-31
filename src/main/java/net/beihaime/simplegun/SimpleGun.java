@@ -3,7 +3,7 @@ package net.beihaime.simplegun;
 import com.mojang.logging.LogUtils;
 import net.beihaime.simplegun.client.GunClientEvents;
 import net.beihaime.simplegun.creativeTab.ModCreativeTabs;
-import net.beihaime.simplegun.events.Charge;
+import net.beihaime.simplegun.events.Reload;
 import net.beihaime.simplegun.events.FireEvent;
 import net.beihaime.simplegun.network.ModNetwork;
 import net.beihaime.simplegun.registry.ModEntities;
@@ -47,7 +47,7 @@ public class SimpleGun {
         ModItem.ITEMS.register(modEventBus);
         ModEntities.ENTITIES.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(GunClientEvents.class);
-        MinecraftForge.EVENT_BUS.register(new Charge());
+        MinecraftForge.EVENT_BUS.register(new Reload());
         modEventBus.register(ModKeys.class);
         MinecraftForge.EVENT_BUS.register(ReloadManager.class);
         ModNetwork.register();

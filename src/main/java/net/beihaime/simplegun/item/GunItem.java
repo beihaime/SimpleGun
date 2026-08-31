@@ -1,7 +1,5 @@
 package net.beihaime.simplegun.item;
 
-import net.beihaime.simplegun.sound.PlaySounds;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -24,6 +22,7 @@ public class GunItem extends Item {
     private final boolean aim;
     private final Supplier<Item> ammo;
     private final double chargeTime;
+    private final int magazineSize;
     public GunItem(Properties properties,
                    float damage,
                    double speed,
@@ -31,7 +30,8 @@ public class GunItem extends Item {
                    Supplier ammo,
                    boolean automatic,
                    boolean aim,
-                   double chargeTime
+                   double chargeTime,
+                   int magazineSize
     ) {
         super(properties);
         this.speed = speed;
@@ -41,11 +41,30 @@ public class GunItem extends Item {
         this.ammo = ammo;
         this.aim = aim;
         this.chargeTime = chargeTime * 20;
+        this.magazineSize = magazineSize;
     }
 
     public double getChargeTime() {
         return chargeTime;
     }
+
+    public int getMagazineSize() {
+        return magazineSize;
+    }
+
+
+    public int getMagazineAmmo(ItemStack stack) {
+        if (!stack.getOrCreateTag().contains("MagazineAmmo")) {
+            setMagazineAmmo(stack, magazineSize);
+        }
+
+        return stack.getOrCreateTag().getInt("MagazineAmmo");
+    }
+
+    public void setMagazineAmmo(ItemStack stack, int ammo) {
+        stack.getOrCreateTag().putInt("MagazineAmmo", ammo);
+    }
+
 
     public float getDamage() {
         return this.damage;
