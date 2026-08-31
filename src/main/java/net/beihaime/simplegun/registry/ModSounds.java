@@ -25,4 +25,11 @@ public class ModSounds {
                             new ResourceLocation(SimpleGun.MOD_ID, "rpg_shoot")
                     )
             );
+
+    public static final RegistryObject<SoundEvent> CHARGE =
+            SOUNDS.register("charge",
+                    () -> SoundEvent.createVariableRangeEvent(
+                            new ResourceLocation(SimpleGun.MOD_ID, "charge")
+                    )
+            );
 }

@@ -3,13 +3,15 @@ package net.beihaime.simplegun;
 import com.mojang.logging.LogUtils;
 import net.beihaime.simplegun.client.GunClientEvents;
 import net.beihaime.simplegun.creativeTab.ModCreativeTabs;
+import net.beihaime.simplegun.events.Charge;
 import net.beihaime.simplegun.events.FireEvent;
+import net.beihaime.simplegun.network.ModNetwork;
 import net.beihaime.simplegun.registry.ModEntities;
 import net.beihaime.simplegun.registry.ModItem;
+import net.beihaime.simplegun.registry.ModKeys;
 import net.beihaime.simplegun.registry.ModSounds;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -17,7 +19,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
-import net.beihaime.simplegun.network.ModNetwork;
+
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SimpleGun.MOD_ID)
@@ -43,7 +45,9 @@ public class SimpleGun {
         ModItem.ITEMS.register(modEventBus);
         ModEntities.ENTITIES.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(GunClientEvents.class);
-
+        MinecraftForge.EVENT_BUS.register(new Charge());
+        MinecraftForge.EVENT_BUS.register(new Charge());
+        modEventBus.register(ModKeys.class);
         ModNetwork.register();
 
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);

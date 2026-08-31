@@ -1,5 +1,6 @@
 package net.beihaime.simplegun.network;
 
+import net.beihaime.simplegun.events.Charge;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -21,6 +22,13 @@ public class ModNetwork {
                 FirePacket::encode,
                 FirePacket::new,
                 FirePacket::handle
+        );
+        CHANNEL.registerMessage(
+                1,
+                ChargePacket.class,
+                ChargePacket::encode,
+                ChargePacket::decode,
+                ChargePacket::handle
         );
     }
 }

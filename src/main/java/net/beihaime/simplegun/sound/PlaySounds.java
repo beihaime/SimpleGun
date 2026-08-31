@@ -20,6 +20,7 @@ public class PlaySounds {
                 1.0F
         );
     }
+
     public static void shootSound(Player player, GunItem launcher) {
         if (launcher.getAmmo() == ModItem.ROCKET.get()) {
             player.level().playSound(
@@ -40,5 +41,16 @@ public class PlaySounds {
                     1.0F
             );
         }
+    }
+
+    public static void chargeSound(Player player) {
+        player.level().playSound(
+                null,
+                player.getX(), player.getY(),player.getZ(),
+                ModSounds.CHARGE.get(),
+                SoundSource.PLAYERS,
+                1F,
+                1.0F
+        );
     }
 }

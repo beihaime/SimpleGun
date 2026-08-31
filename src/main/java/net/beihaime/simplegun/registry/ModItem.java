@@ -19,8 +19,10 @@ public class ModItem {
                     5,
                     3,
                     ModItem.ROCKET,
-                    false
-                    ,true
+                    false,
+                    true,
+                    6
+
             )
     );
 
@@ -34,7 +36,8 @@ public class ModItem {
                     0.3,
                     ModItem.BULLET,
                     false,
-                    true
+                    true,
+                    3
 
             )
     );
@@ -49,7 +52,8 @@ public class ModItem {
                     0.1,
                     ModItem.BULLET,
                     true,
-                    false
+                    false,
+                    4
             )
     );
 

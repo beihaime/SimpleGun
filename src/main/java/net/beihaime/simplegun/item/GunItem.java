@@ -23,13 +23,15 @@ public class GunItem extends Item {
     private final boolean automatic;
     private final boolean aim;
     private final Supplier<Item> ammo;
+    private final double chargeTime;
     public GunItem(Properties properties,
                    float damage,
                    double speed,
                    double cooldown,
                    Supplier ammo,
                    boolean automatic,
-                   boolean aim
+                   boolean aim,
+                   double chargeTime
     ) {
         super(properties);
         this.speed = speed;
@@ -38,6 +40,11 @@ public class GunItem extends Item {
         this.automatic = automatic;
         this.ammo = ammo;
         this.aim = aim;
+        this.chargeTime = chargeTime;
+    }
+
+    public double getChargeTime() {
+        return chargeTime;
     }
 
     public float getDamage() {

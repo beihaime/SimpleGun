@@ -8,5 +8,7 @@
   "no_ammo_warning": "You don't have ammo",
   "cannot_aim": "This gun actually cannot aim",
   "advancements.simplegun.first_gun.title": "New generation",
-  "advancements.simplegun.first_gun.description": "Obtain an AK-47"
+  "advancements.simplegun.first_gun.description": "Obtain an AK-47",
+  "key.simplegun.charge": "Charge",
+  "key.categories.simplegun": "SimpleGun"
 }

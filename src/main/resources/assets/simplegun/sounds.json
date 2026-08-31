@@ -6,5 +6,9 @@
   "rpg_shoot": {
     "category": "player",
     "sounds": [ "simplegun:rpg_shoot" ]
+  },
+  "charge": {
+    "category": "player",
+    "sounds": [ "simplegun:charge" ]
   }
 }
