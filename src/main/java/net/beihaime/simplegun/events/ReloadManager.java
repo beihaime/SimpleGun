@@ -77,12 +77,11 @@ public class ReloadManager {
             ItemStack currentStack =
                     player.getMainHandItem();
 
-            // Cancel reload when switching to another weapon
-            if (currentStack.getItem() != state.stack.getItem()) {
+            // Cancel reload when switching to another ItemStack
+            if (currentStack != state.stack) {
                 iterator.remove();
                 continue;
             }
-
             // Count down on the server
             state.remainingTicks--;
 
