@@ -38,7 +38,7 @@ public class ModItem {
                     ModItem.BULLET,
                     false,
                     true,
-                    3,
+                    2,
                     9
 
             )
@@ -54,7 +54,7 @@ public class ModItem {
                     0.1,
                     ModItem.BULLET,
                     true,
-                    false,
+                    true,
                     4,
                     30
             )

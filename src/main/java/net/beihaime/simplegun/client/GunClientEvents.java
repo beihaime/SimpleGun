@@ -6,6 +6,7 @@ import net.beihaime.simplegun.network.ModNetwork;
 import net.beihaime.simplegun.registry.ModItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,11 +24,12 @@ public class GunClientEvents {
             if (mc.player == null) {
                 return;
             }
-
             if (mc.player.isUsingItem()
-                    && mc.player.getUseItem().getItem() instanceof GunItem launcher
-                    && launcher.canAim()) {
-
+                    && mc.player.getUseItem().getItem() instanceof GunItem  launcher
+                    && launcher.canAim()
+                    && mc.player.getMainHandItem().getItem() == launcher
+                    && mc.player.getMainHandItem().getItem() != ModItem.AK47.get()
+                    && mc.player.getOffhandItem().getItem() == Items.AIR) {             // Avoid Fov effect when item on offhand
                 event.setFOV(event.getFOV() * 0.25);
 
         }
@@ -47,7 +49,7 @@ public class GunClientEvents {
         boolean isAiming = mc.player.isUsingItem()
                 && mc.player.getUseItem().getItem() instanceof GunItem;
 
-        if (isAiming && !aiming) {
+        if (isAiming && !aiming && mc.player.getMainHandItem().getItem() != ModItem.AK47.get()) {
             originalSensitivity = mc.options.sensitivity().get();
             mc.options.sensitivity().set(originalSensitivity * 0.25);
             aiming = true;

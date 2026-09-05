@@ -96,6 +96,9 @@ public class GunItem extends Item {
             Player player,
             InteractionHand hand
     ) {
+        if (hand == InteractionHand.OFF_HAND) {
+            return InteractionResultHolder.fail(player.getItemInHand(hand));
+        }
         if (!canAim()) {
             return InteractionResultHolder.pass(player.getItemInHand(hand));
         }
