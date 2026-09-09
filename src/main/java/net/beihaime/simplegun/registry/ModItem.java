@@ -1,6 +1,7 @@
 package net.beihaime.simplegun.registry;
 
 import net.beihaime.simplegun.item.GunItem;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -22,6 +23,8 @@ public class ModItem {
                     false,
                     true,
                     6,
+                    1,
+                    MobEffects.MOVEMENT_SLOWDOWN,
                     1
 
             )
@@ -39,7 +42,9 @@ public class ModItem {
                     false,
                     true,
                     2,
-                    9
+                    9,
+                    MobEffects.MOVEMENT_SPEED,
+                    2
 
             )
     );
@@ -56,7 +61,26 @@ public class ModItem {
                     true,
                     true,
                     4,
-                    30
+                    30,
+                    MobEffects.MOVEMENT_SPEED,
+                    0
+            )
+    );
+
+    public static final RegistryObject<Item> AWP = ITEMS.register(
+            "awp",
+            () -> new GunItem(
+                    new Item.Properties(),
+                    100,
+                    200,
+                    2,
+                    ModItem.BULLET,
+                    false,
+                    true,
+                    5,
+                    6,
+                    MobEffects.MOVEMENT_SPEED,
+                    2
             )
     );
 

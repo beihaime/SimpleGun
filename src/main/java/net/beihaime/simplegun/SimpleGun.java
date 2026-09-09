@@ -3,6 +3,7 @@ package net.beihaime.simplegun;
 import com.mojang.logging.LogUtils;
 import net.beihaime.simplegun.client.GunClientEvents;
 import net.beihaime.simplegun.creativeTab.ModCreativeTabs;
+import net.beihaime.simplegun.events.GunEvents;
 import net.beihaime.simplegun.events.Reload;
 import net.beihaime.simplegun.events.FireEvent;
 import net.beihaime.simplegun.network.ModNetwork;
@@ -21,26 +22,16 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.beihaime.simplegun.events.ReloadManager;
 import org.slf4j.Logger;
 
-
-
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(SimpleGun.MOD_ID)
 public class SimpleGun {
-    // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "simplegun";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
 
     public SimpleGun(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
-
-        // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
-
         LOGGER.info(MOD_ID+" has been initialized");
-
-        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new FireEvent());
         ModSounds.SOUNDS.register(modEventBus);
@@ -50,17 +41,14 @@ public class SimpleGun {
         MinecraftForge.EVENT_BUS.register(new Reload());
         modEventBus.register(ModKeys.class);
         MinecraftForge.EVENT_BUS.register(ReloadManager.class);
+        MinecraftForge.EVENT_BUS.register(GunEvents.class);
         ModNetwork.register();
-
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
-        // Register the item to a creative tab
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
     }
 
-
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent

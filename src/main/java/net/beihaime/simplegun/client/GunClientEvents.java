@@ -24,13 +24,14 @@ public class GunClientEvents {
             if (mc.player == null) {
                 return;
             }
+            double fov = (mc.player.getMainHandItem().getItem() == ModItem.AWP.get()) ? (event.getFOV() * 0.2) : (event.getFOV() * 0.25);
             if (mc.player.isUsingItem()
                     && mc.player.getUseItem().getItem() instanceof GunItem  launcher
                     && launcher.canAim()
                     && mc.player.getMainHandItem().getItem() == launcher
                     && mc.player.getMainHandItem().getItem() != ModItem.AK47.get()
                     && mc.player.getOffhandItem().getItem() == Items.AIR) {             // Avoid Fov effect when item on offhand
-                event.setFOV(event.getFOV() * 0.25);
+                event.setFOV(fov);
 
         }
     }
